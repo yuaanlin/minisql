@@ -1,0 +1,11 @@
+{
+    "files.associations": {
+        "*.h": "cpp",
+        "*.json": "jsonc",
+        "array": "cpp",
+        "utility": "cpp",
+        "string": "cpp",
+        "iosfwd": "cpp",
+        "__threading_support": "cpp"
+    }
+}
