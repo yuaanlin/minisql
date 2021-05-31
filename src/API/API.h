@@ -14,8 +14,8 @@ class API {
     IndexManager *indexManager;
 
    public:
-    API(Interpreter *it, CatalogManager *c, RecordManager *r,
-        IndexManager *ind);
+    void init(Interpreter *it, CatalogManager *c, RecordManager *r,
+              IndexManager *ind);
 };
 
 #endif

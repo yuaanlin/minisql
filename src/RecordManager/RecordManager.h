@@ -10,7 +10,7 @@ class RecordManager {
     BufferManager *bufferManager;
 
    public:
-    RecordManager(API *a, BufferManager *b);
+    void init(API *a, BufferManager *b);
 };
 
 #endif

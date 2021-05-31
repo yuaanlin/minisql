@@ -1,6 +1,6 @@
 #include "IndexManager.h"
 
-IndexManager::IndexManager(API *a, BufferManager *b) {
+void IndexManager::init(API *a, BufferManager *b) {
     api = a;
     bufferManager = b;
 }

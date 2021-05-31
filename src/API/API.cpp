@@ -1,7 +1,7 @@
 #include "API.h"
 
-API::API(Interpreter *it, CatalogManager *c, RecordManager *r,
-         IndexManager *ind) {
+void API::init(Interpreter *it, CatalogManager *c, RecordManager *r,
+               IndexManager *ind) {
     interpreter = it;
     catalogManager = c;
     recordManager = r;

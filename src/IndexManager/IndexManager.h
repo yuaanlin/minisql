@@ -10,7 +10,7 @@ class IndexManager {
     BufferManager *bufferManager;
 
    public:
-    IndexManager(API *a, BufferManager *b);
+    void init(API *a, BufferManager *b);
 };
 
 #endif

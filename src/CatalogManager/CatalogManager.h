@@ -10,7 +10,7 @@ class CatalogManager {
     BufferManager *bufferManager;
 
    public:
-    CatalogManager(API *a, BufferManager *b);
+    void init(API *a, BufferManager *b);
 };
 
 #endif

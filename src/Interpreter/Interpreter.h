@@ -8,7 +8,7 @@ class Interpreter {
     API *api;
 
    public:
-    Interpreter(API *a);
+    void init(API *a);
 };
 
 #endif

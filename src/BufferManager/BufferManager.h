@@ -3,9 +3,8 @@
 
 class BufferManager {
    private:
-    /* data */
    public:
-    BufferManager();
+    void init();
 };
 
 #endif

@@ -1,3 +1,3 @@
 #include "Interpreter.h"
 
-Interpreter::Interpreter(API *a) { api = a; }
+void Interpreter::init(API *a) { api = a; }
