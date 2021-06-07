@@ -5,6 +5,7 @@ class BufferManager {
    private:
    public:
     void init();
+    //buffer
 };
 
 #endif
