@@ -1,9 +1,8 @@
 #ifndef __minisql_record_manager__
 #define __minisql_record_manager__
 
-#include "API.h"
-#include "BufferManager.h"
-
+class API;
+class BufferManager;
 class RecordManager {
    private:
     API *api;

@@ -1,10 +1,10 @@
 #ifndef __minisql_api_h__
 #define __minisql_api_h__
 
-#include "CatalogManager.h"
-#include "RecordManager.h"
-#include "IndexManager.h"
-#include "Interpreter.h"
+#include "../CatalogManager/CatalogManager.h"
+#include "../RecordManager/RecordManager.h"
+#include "../IndexManager/IndexManager.h"
+#include "../Interpreter/Interpreter.h"
 
 class API {
    private:

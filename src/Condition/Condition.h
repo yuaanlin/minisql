@@ -13,12 +13,12 @@ class Condition {
     string value;
 
    public:
-    const static char EQ_OPERATOR = '=';
-    const static char NEQ_OPERATOR = '<>';
-    const static char BT_OPERATOR = '>';
-    const static char LT_OPERATOR = '<';
-    const static char BTE_OPERATOR = '>=';
-    const static char LTE_OPERATOR = '<=';
+    const static int EQ_OPERATOR = 0;   // =
+    const static int NEQ_OPERATOR = 1;  // <>
+    const static int BT_OPERATOR = 2;   // >
+    const static int LT_OPERATOR = 3;   // <
+    const static int BTE_OPERATOR = 4;  // >=
+    const static int LTE_OPERATOR = 5;  // <=
     Condition(string a, char o, string v);
 };
 

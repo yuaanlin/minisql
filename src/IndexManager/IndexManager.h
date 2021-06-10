@@ -1,9 +1,9 @@
 #ifndef __minisql_index_manager_h__
 #define __minisql_index_manager_h__
 
-#include "API.h"
-#include "BufferManager.h"
-
+class API;
+class Interpreter;
+class BufferManager;
 class IndexManager {
    private:
     API *api;

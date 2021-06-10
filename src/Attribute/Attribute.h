@@ -1,7 +1,7 @@
 #ifndef __minisql_attribute_h__
 #define __minisql_attribute_h__
 
-#include "global.h"
+#include "../global.h"
 #include "string"
 
 using namespace std;

@@ -1,4 +1,4 @@
-#include <Attribute.h>
+#include "Attribute.h"
 
 Attribute::Attribute(string n, DataType dt) {
     name = n;
