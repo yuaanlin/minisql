@@ -6,6 +6,13 @@
         "utility": "cpp",
         "string": "cpp",
         "iosfwd": "cpp",
-        "__threading_support": "cpp"
+        "__threading_support": "cpp",
+        "ios": "cpp",
+        "istream": "cpp",
+        "locale": "cpp",
+        "numeric": "cpp",
+        "ostream": "cpp",
+        "random": "cpp",
+        "__functional_03": "cpp"
     }
 }
