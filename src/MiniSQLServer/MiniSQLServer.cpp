@@ -39,8 +39,9 @@ void MiniSQLServer::run() {
         });
 
         /* Send sql_command to interpreter and get response */
+        ExecutionResponse exeRes = this->interpreter.execute(sqlCommand);
 
-        res.set_content("MiniSQL not implemented yet.", "application/json");
+        res.set_content(exeRes.getJson(), "application/json");
     });
 
     httpServer.listen("localhost", 3306);

@@ -8,11 +8,9 @@ using namespace std;
 
 /** An attribute of entity */
 class Attribute {
-   private:
+   public:
     string name;
     DataType dataType;
-
-   public:
     Attribute(string n, DataType dt);
 };
 
