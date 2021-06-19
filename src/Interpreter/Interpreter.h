@@ -99,6 +99,86 @@ class Interpreter {
      * @param s string
      */
     void log(string s);
+
+    /**
+     * There is no documention for this function yet.
+     *
+     * 该函数的文档尚未完善。
+     *
+     * @param sql string
+     * @param p *int
+     */
+    ExecutionResponse interpretSelectOperation(string sql, int *p);
+
+    /**
+     * There is no documention for this function yet.
+     *
+     * 该函数的文档尚未完善。
+     *
+     * @param sql string
+     * @param p *int
+     */
+    ExecutionResponse interpretCreateTableOperation(string sql, int *p);
+
+    /**
+     * There is no documention for this function yet.
+     *
+     * 该函数的文档尚未完善。
+     *
+     * @param sql string
+     * @param p *int
+     */
+    ExecutionResponse interpretCreateIndexOperation(string sql, int *p);
+
+    /**
+     * There is no documention for this function yet.
+     *
+     * 该函数的文档尚未完善。
+     *
+     * @param sql string
+     * @param p *int
+     */
+    ExecutionResponse interpretDropTableOperation(string sql, int *p);
+
+    /**
+     * There is no documention for this function yet.
+     *
+     * 该函数的文档尚未完善。
+     *
+     * @param sql string
+     * @param p *int
+     */
+    ExecutionResponse interpretDropIndexOperation(string sql, int *p);
+
+    /**
+     * There is no documention for this function yet.
+     *
+     * 该函数的文档尚未完善。
+     *
+     * @param sql string
+     * @param p *int
+     */
+    ExecutionResponse interpretUpdateOperation(string sql, int *p);
+
+    /**
+     * There is no documention for this function yet.
+     *
+     * 该函数的文档尚未完善。
+     *
+     * @param sql string
+     * @param p *int
+     */
+    ExecutionResponse interpretDeleteOperation(string sql, int *p);
+
+    /**
+     * There is no documention for this function yet.
+     *
+     * 该函数的文档尚未完善。
+     *
+     * @param sql string
+     * @param p *int
+     */
+    ExecutionResponse interpretInsertOperation(string sql, int *p);
 };
 
 #endif
