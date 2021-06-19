@@ -1,5 +1,6 @@
 #include "MiniSQLServer.h"
 #include "../../include/httplib.h"
+#include "../FileLogger/FileLogger.h"
 #include <iostream>
 
 using namespace httplib;
@@ -11,13 +12,14 @@ MiniSQLServer::MiniSQLServer() {
     Interpreter interpreter;
     API api;
     BufferManager bufferManager;
+    FileLogger logger;
 
     indexManager.init(&api, &bufferManager);
     recordManager.init(&api, &bufferManager);
     catalogManager.init(&api, &bufferManager);
     api.init(&catalogManager, &recordManager, &indexManager);
     bufferManager.init();
-    interpreter.init(&api);
+    interpreter.init(&api, &logger);
 
     this->api = api;
     this->bufferManager = bufferManager;

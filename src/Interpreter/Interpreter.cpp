@@ -7,9 +7,14 @@
 
 using namespace std;
 
-void Interpreter::init(API *a) { api = a; }
+void Interpreter::init(API *a, FileLogger *l) {
+    api = a;
+    logger = l;
+}
 
 ExecutionResponse Interpreter::execute(string sqlCommand) {
+    logger->log("Received new sql command: " + sqlCommand);
+
     replace(sqlCommand.begin(), sqlCommand.end(), ',', ' ');
 
     int p = 0;

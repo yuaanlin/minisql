@@ -1,4 +1,5 @@
 #include "Interpreter.h"
+#include <ctime>
 #include <string>
 
 string Interpreter::getWord(string s, int *from) {
@@ -100,11 +101,4 @@ bool Interpreter::isKeyword(string a) {
     if (isSame(a, "float")) return true;
     if (isSame(a, "string")) return true;
     return false;
-}
-
-void Interpreter::log(string s) {
-    ofstream log;
-    log.open("log.txt", fstream::in | fstream::out | fstream::app);
-    log << s << endl;
-    log.close();
 }

@@ -3,6 +3,7 @@
 
 #include <string>
 #include <vector>
+#include "../FileLogger/FileLogger.h"
 #include "../Attribute/Attribute.h"
 #include "../API/API.h"
 #include <fstream>
@@ -19,6 +20,7 @@ class ExecutionResponse {
 
 class Interpreter {
    private:
+    FileLogger *logger;
     API *api;
 
    public:
@@ -39,8 +41,9 @@ class Interpreter {
      * 该函数的文档尚未完善。
      *
      * @param a API
+     * @param l Logger
      */
-    void init(API *a);
+    void init(API *a, FileLogger *l);
 
     /**
      * Read an word from the position of given string.
@@ -90,15 +93,6 @@ class Interpreter {
      * @return bool
      */
     bool isKeyword(string a);
-
-    /**
-     * There is no documention for this function yet.
-     *
-     * 该函数的文档尚未完善。
-     *
-     * @param s string
-     */
-    void log(string s);
 
     /**
      * There is no documention for this function yet.
