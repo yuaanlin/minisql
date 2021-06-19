@@ -15,7 +15,7 @@ MiniSQLServer::MiniSQLServer() {
     indexManager.init(&api, &bufferManager);
     recordManager.init(&api, &bufferManager);
     catalogManager.init(&api, &bufferManager);
-    api.init(&interpreter, &catalogManager, &recordManager, &indexManager);
+    api.init(&catalogManager, &recordManager, &indexManager);
     bufferManager.init();
     interpreter.init(&api);
 
@@ -44,5 +44,10 @@ void MiniSQLServer::run() {
         res.set_content(exeRes.getJson(), "application/json");
     });
 
+    cout << "Starting server..." << endl;
+    cout << "Send POST request to port 3306 to execute SQL command." << endl;
+
     httpServer.listen("localhost", 3306);
+
+    cout << "Closing server ..." << endl;
 }

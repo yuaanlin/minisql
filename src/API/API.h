@@ -1,21 +1,101 @@
 #ifndef __minisql_api_h__
 #define __minisql_api_h__
 
+#include "../global.h"
 #include "../CatalogManager/CatalogManager.h"
+#include "../Condition/Condition.h"
 #include "../RecordManager/RecordManager.h"
 #include "../IndexManager/IndexManager.h"
-#include "../Interpreter/Interpreter.h"
+
+#include <vector>
+#include <string>
+
+using namespace std;
 
 class API {
    private:
-    Interpreter *interpreter;
     CatalogManager *catalogManager;
     RecordManager *recordManager;
     IndexManager *indexManager;
 
    public:
-    void init(Interpreter *it, CatalogManager *c, RecordManager *r,
-              IndexManager *ind);
+    /**
+     * There is no documention for this function yet.
+     *
+     * 该函数的文档尚未完善。
+     *
+     * @param sqlCommand string
+     *
+     * @return ExecutionResponse
+     */
+    void init(CatalogManager *c, RecordManager *r, IndexManager *ind);
+
+    /**
+     * There is no documention for this function yet.
+     *
+     * 该函数的文档尚未完善。
+     *
+     * @param sqlCommand string
+     *
+     * @return ExecutionResponse
+     */
+    void createIndex();
+
+    /**
+     * There is no documention for this function yet.
+     *
+     * 该函数的文档尚未完善。
+     *
+     * @param sqlCommand string
+     *
+     * @return ExecutionResponse
+     */
+    void createTable();
+
+    /**
+     * There is no documention for this function yet.
+     *
+     * 该函数的文档尚未完善。
+     *
+     * @param sqlCommand string
+     *
+     * @return Records
+     */
+    Records selectRecords(string tableName, vector<string> columns,
+                          vector<Condition> conditions);
+
+    /**
+     * There is no documention for this function yet.
+     *
+     * 该函数的文档尚未完善。
+     *
+     * @param sqlCommand string
+     *
+     * @return ExecutionResponse
+     */
+    void insertRecord();
+
+    /**
+     * There is no documention for this function yet.
+     *
+     * 该函数的文档尚未完善。
+     *
+     * @param sqlCommand string
+     *
+     * @return ExecutionResponse
+     */
+    void updateRecord();
+
+    /**
+     * There is no documention for this function yet.
+     *
+     * 该函数的文档尚未完善。
+     *
+     * @param sqlCommand string
+     *
+     * @return ExecutionResponse
+     */
+    void deleteRecord();
 };
 
 #endif

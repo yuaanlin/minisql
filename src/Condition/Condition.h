@@ -20,6 +20,8 @@ class Condition {
     const static int BTE_OPERATOR = 4;  // >=
     const static int LTE_OPERATOR = 5;  // <=
     Condition(string a, char o, string v);
+    Condition();
+    string toJson();
 };
 
 #endif
