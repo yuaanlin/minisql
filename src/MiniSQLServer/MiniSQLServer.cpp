@@ -6,27 +6,24 @@
 using namespace httplib;
 
 MiniSQLServer::MiniSQLServer() {
-    IndexManager indexManager;
-    RecordManager recordManager;
-    CatalogManager catalogManager;
-    Interpreter interpreter;
-    API api;
-    BufferManager bufferManager;
-    FileLogger logger;
+    this->api = new API();
+    this->bufferManager = new BufferManager();
+    this->catalogManager = new CatalogManager();
+    this->indexManager = new IndexManager();
+    this->interpreter = new Interpreter();
+    this->recordManager = new RecordManager();
 
-    indexManager.init(&api, &bufferManager);
-    recordManager.init(&api, &bufferManager);
-    catalogManager.init(&api, &bufferManager);
-    api.init(&catalogManager, &recordManager, &indexManager);
-    bufferManager.init();
-    interpreter.init(&api, &logger);
+    FileLogger *logger = new FileLogger();
 
-    this->api = api;
-    this->bufferManager = bufferManager;
-    this->catalogManager = catalogManager;
-    this->indexManager = indexManager;
-    this->interpreter = interpreter;
-    this->recordManager = recordManager;
+    logger->log("Starting MiniSQL Server ...");
+
+    this->indexManager->init(this->api, this->bufferManager);
+    this->recordManager->init(this->api, this->bufferManager);
+    this->catalogManager->init(this->api, logger);
+    this->api->init(this->catalogManager, this->recordManager,
+                    this->indexManager, logger);
+    this->bufferManager->init();
+    this->interpreter->init(this->api, logger);
 }
 
 void MiniSQLServer::run() {
@@ -41,7 +38,7 @@ void MiniSQLServer::run() {
         });
 
         /* Send sql_command to interpreter and get response */
-        ExecutionResponse exeRes = this->interpreter.execute(sqlCommand);
+        ExecutionResponse exeRes = this->interpreter->execute(sqlCommand);
 
         res.set_content(exeRes.getJson(), "application/json");
     });

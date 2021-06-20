@@ -10,12 +10,12 @@
 
 class MiniSQLServer {
    private:
-    IndexManager indexManager;
-    RecordManager recordManager;
-    CatalogManager catalogManager;
-    Interpreter interpreter;
-    API api;
-    BufferManager bufferManager;
+    IndexManager *indexManager;
+    RecordManager *recordManager;
+    CatalogManager *catalogManager;
+    Interpreter *interpreter;
+    API *api;
+    BufferManager *bufferManager;
 
    public:
     MiniSQLServer();

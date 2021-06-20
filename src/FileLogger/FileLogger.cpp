@@ -25,7 +25,7 @@ string getCurrentTime() {
 
 void FileLogger::log(string s) {
     ofstream log;
-    log.open(getTodayDate() + ".log",
+    log.open("logs/" + getTodayDate() + ".log",
              fstream::in | fstream::out | fstream::app);
     log << '[' << getCurrentTime() << "] " << s << endl;
     log.close();

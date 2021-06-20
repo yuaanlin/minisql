@@ -1,0 +1,4 @@
+name: test
+attributes: 
+	- name: field1
+	  type: 0

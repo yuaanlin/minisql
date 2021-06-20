@@ -17,6 +17,7 @@ class API {
     CatalogManager *catalogManager;
     RecordManager *recordManager;
     IndexManager *indexManager;
+    FileLogger *logger;
 
    public:
     /**
@@ -28,7 +29,8 @@ class API {
      *
      * @return ExecutionResponse
      */
-    void init(CatalogManager *c, RecordManager *r, IndexManager *ind);
+    void init(CatalogManager *c, RecordManager *r, IndexManager *ind,
+              FileLogger *logger);
 
     /**
      * There is no documention for this function yet.
