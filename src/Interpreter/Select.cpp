@@ -29,14 +29,7 @@ ExecutionResponse Interpreter::interpretSelectOperation(string sqlCommand,
     }
 
     vector<Condition> conditions;
-    string w;
-
-    try {
-        w = getWord(sqlCommand, p);
-    } catch (int err) {
-        // 无条件查询
-        if (err == EOF_REACHED) w = "";
-    }
+    string w = getWord(sqlCommand, p);
 
     if (isSame(w, "WHERE")) {
         string a;
@@ -44,11 +37,9 @@ ExecutionResponse Interpreter::interpretSelectOperation(string sqlCommand,
         string b;
         int c = 0;
         while (true) {
-            try {
-                w = getWord(sqlCommand, p);
-            } catch (ErrorType err) {
-                if (err == EOF_REACHED) break;
-            }
+            w = getWord(sqlCommand, p);
+
+            if (w == "" || w == ";") break;
 
             if (isSame(w, "AND")) {
                 continue;

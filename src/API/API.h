@@ -86,7 +86,8 @@ class API {
      *
      * @return ExecutionResponse
      */
-    void updateRecord();
+    void updateRecord(string tableName, vector<string> fields,
+                      vector<string> values, vector<Condition> conditions);
 
     /**
      * There is no documention for this function yet.

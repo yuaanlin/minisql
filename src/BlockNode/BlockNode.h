@@ -6,6 +6,7 @@
 using namespace std;
 
 class BlockNode {
+   public:
     string fileName;
     int offset;
     bool isPined;
@@ -14,6 +15,14 @@ class BlockNode {
     char* address;
     BlockNode* prev;
     BlockNode* next;
+};
+
+struct FileNode {
+    string name;
+    bool isPined;
+    BlockNode* blockHead;
+    FileNode* prev;
+    FileNode* next;
 };
 
 #endif

@@ -51,3 +51,12 @@ void API::createIndex(string indexName, string tableName,
 
     // TODO: Call IndexManager to create Indexes
 }
+
+void API::updateRecord(string tableName, vector<string> fields,
+                       vector<string> values, vector<Condition> conditions) {
+    // TODO: Check table exist
+
+    // TODO: Check fields exist
+
+    // TODO: Call RecordManager to update records
+}
