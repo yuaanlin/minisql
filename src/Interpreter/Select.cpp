@@ -2,8 +2,6 @@
 
 ExecutionResponse Interpreter::interpretSelectOperation(string sqlCommand,
                                                         int *p) {
-    ExecutionResponse res;
-
     vector<string> cols;
     string col;
 
@@ -15,6 +13,7 @@ ExecutionResponse Interpreter::interpretSelectOperation(string sqlCommand,
     // TODO: Get attributes from Catalog Manager
 
     if (!isSame(col, "FROM")) {
+        ExecutionResponse res;
         res.error =
             "Expected FROM but got " + col + " at position " + to_string(*p);
         return res;
@@ -23,6 +22,7 @@ ExecutionResponse Interpreter::interpretSelectOperation(string sqlCommand,
     string tableName = getWord(sqlCommand, p);
 
     if (isKeyword(tableName)) {
+        ExecutionResponse res;
         res.error = "Expected table name but got " + col + " at position " +
                     to_string(*p);
         return res;
@@ -55,6 +55,7 @@ ExecutionResponse Interpreter::interpretSelectOperation(string sqlCommand,
             }
 
             if (isSame(w, "OR")) {
+                ExecutionResponse res;
                 res.error = "Our MiniSQL has not implement OR condition yet!";
                 return res;
             }
@@ -82,8 +83,18 @@ ExecutionResponse Interpreter::interpretSelectOperation(string sqlCommand,
         }
     }
 
-    res.results = this->api->selectRecords(tableName, cols, conditions);
-    res.fields = attributes;
-
-    return res;
+    try {
+        ExecutionResponse res;
+        res.fields = attributes;
+        res.results = this->api->selectRecords(tableName, cols, conditions);
+        return res;
+    } catch (SelectOperationError error) {
+        switch (error) {
+            case SELECTED_TABLE_NOT_EXIST:
+                ExecutionResponse res;
+                res.error = "Table with name " + tableName + " not exist.";
+                return res;
+                break;
+        }
+    }
 }

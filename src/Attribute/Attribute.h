@@ -12,6 +12,7 @@ class Attribute {
     string name;
     DataType dataType;
     Attribute(string n, DataType dt);
+    Attribute();
 };
 
 #endif

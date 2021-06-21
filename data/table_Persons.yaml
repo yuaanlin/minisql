@@ -1,0 +1,12 @@
+name: Persons
+attributes: 
+	- name: PersonID
+	  type: 0
+	- name: LastName
+	  type: 0
+	- name: FirstName
+	  type: 0
+	- name: Address
+	  type: 0
+	- name: City
+	  type: 0

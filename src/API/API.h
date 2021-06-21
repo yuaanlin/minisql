@@ -41,7 +41,7 @@ class API {
      *
      * @return ExecutionResponse
      */
-    void createIndex();
+    void createIndex(string indexName, string tableName, vector<string> fields);
 
     /**
      * There is no documention for this function yet.
@@ -52,7 +52,7 @@ class API {
      *
      * @return ExecutionResponse
      */
-    void createTable();
+    void createTable(string tableName, vector<Attribute> attrs);
 
     /**
      * There is no documention for this function yet.
@@ -75,7 +75,7 @@ class API {
      *
      * @return ExecutionResponse
      */
-    void insertRecord();
+    void insertRecord(string tableName, vector<string> values);
 
     /**
      * There is no documention for this function yet.

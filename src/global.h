@@ -8,6 +8,10 @@ using namespace std;
 
 enum DataType { Integer, Float, String };
 typedef vector<vector<string>> Records;
-enum ErrorType { EOF_REACHED = -1, TABLE_ALREADY_EXIST = -2 };
+enum ErrorType { EOF_REACHED };
+enum CreateTableOperationError { TABLE_ALREADY_EXIST };
+enum SelectOperationError { SELECTED_TABLE_NOT_EXIST };
+enum InsertOperationError { INSERTED_TABLE_NOT_EXIST };
+enum CreateIndexOperationError { CREATED_INDEX_TABLE_NOT_EXIST };
 
 #endif

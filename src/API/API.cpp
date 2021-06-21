@@ -10,17 +10,44 @@ void API::init(CatalogManager *c, RecordManager *r, IndexManager *ind,
 
 Records API::selectRecords(string tableName, vector<string> columns,
                            vector<Condition> conditions) {
+    if (!catalogManager->isTableExist(tableName))
+        throw SELECTED_TABLE_NOT_EXIST;
+
+    // TODO: Check field in conditions exist
+
+    // TODO: Call IndexManager to get possible index
+
+    // TODO: Call RecordManager to get Records
+
     Records r;
     return r;
 }
 
-void API::createTable() {
+void API::createTable(string tableName, vector<Attribute> attrs) {
     logger->log("API creating table ...");
-    string tableName = "test";
-    vector<Attribute> attrs;
-    logger->log("init");
-    attrs.push_back(Attribute("field1", Integer));
     Table t(tableName, attrs);
-    logger->log("go to cata");
     catalogManager->createTable(t);
+
+    // TODO: Call IndexManager to create Primary Key index
+
+    // TODO: Call RecordManager to create data file
+}
+
+void API::insertRecord(string tableName, vector<string> values) {
+    if (!catalogManager->isTableExist(tableName))
+        throw INSERTED_TABLE_NOT_EXIST;
+
+    // TODO: Call Record Manager to insert record
+}
+
+void API::createIndex(string indexName, string tableName,
+                      vector<string> fields) {
+    if (!catalogManager->isTableExist(tableName))
+        throw CREATED_INDEX_TABLE_NOT_EXIST;
+
+    // TODO: Check fields exist
+
+    // TODO: Check if index name already taken
+
+    // TODO: Call IndexManager to create Indexes
 }

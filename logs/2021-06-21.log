@@ -1,0 +1,53 @@
+[2021-06-21 15:18:24] Starting MiniSQL Server ...
+[2021-06-21 15:18:24] CatalogManager starting readTableFile ...
+[2021-06-21 15:18:24] Found table file table_test.yaml
+[2021-06-21 15:18:24] Table test load from file by CatalogManager successfully
+[2021-06-21 15:18:24] Found table file table_Persons.yaml
+[2021-06-21 15:18:24] Table Persons load from file by CatalogManager successfully
+[2021-06-21 15:18:27] Received new sql command: 
+[2021-06-21 15:18:27] INSERT INTO Persons VALUES ( 1, 2, 3)
+[2021-06-21 15:18:27] 1
+[2021-06-21 15:18:27] 2
+[2021-06-21 15:18:27] 3)
+[2021-06-21 15:20:59] Starting MiniSQL Server ...
+[2021-06-21 15:20:59] CatalogManager starting readTableFile ...
+[2021-06-21 15:20:59] Found table file table_test.yaml
+[2021-06-21 15:20:59] Table test load from file by CatalogManager successfully
+[2021-06-21 15:20:59] Found table file table_Persons.yaml
+[2021-06-21 15:20:59] Table Persons load from file by CatalogManager successfully
+[2021-06-21 15:21:02] Received new sql command: 
+[2021-06-21 15:21:02] INSERT INTO Persons VALUES ( 1, 2, 3)
+[2021-06-21 15:21:02] 1
+[2021-06-21 15:21:02] 2
+[2021-06-21 15:21:02] 3
+[2021-06-21 15:21:04] Received new sql command: 
+[2021-06-21 15:21:04] INSERT INTO Persons VALUES ( 1, 2, 3)
+[2021-06-21 15:21:04] 1
+[2021-06-21 15:21:04] 2
+[2021-06-21 15:21:04] 3
+[2021-06-21 15:38:06] Starting MiniSQL Server ...
+[2021-06-21 15:38:06] CatalogManager starting readTableFile ...
+[2021-06-21 15:38:06] Found table file table_test.yaml
+[2021-06-21 15:38:06] Table test load from file by CatalogManager successfully
+[2021-06-21 15:38:06] Found table file table_Persons.yaml
+[2021-06-21 15:38:06] Table Persons load from file by CatalogManager successfully
+[2021-06-21 15:38:49] Starting MiniSQL Server ...
+[2021-06-21 15:38:49] CatalogManager starting readTableFile ...
+[2021-06-21 15:38:49] Found table file table_test.yaml
+[2021-06-21 15:38:49] Table test load from file by CatalogManager successfully
+[2021-06-21 15:38:49] Found table file table_Persons.yaml
+[2021-06-21 15:38:49] Table Persons load from file by CatalogManager successfully
+[2021-06-21 15:39:09] Received new sql command: 
+[2021-06-21 15:39:09] INSERT INTO hahaha 
+[2021-06-21 15:39:55] Starting MiniSQL Server ...
+[2021-06-21 15:39:55] CatalogManager starting readTableFile ...
+[2021-06-21 15:39:55] Found table file table_test.yaml
+[2021-06-21 15:39:55] Table test load from file by CatalogManager successfully
+[2021-06-21 15:39:55] Found table file table_Persons.yaml
+[2021-06-21 15:39:55] Table Persons load from file by CatalogManager successfully
+[2021-06-21 15:39:57] Received new sql command: 
+[2021-06-21 15:39:57] INSERT INTO hahaha VALUES ()
+[2021-06-21 15:40:01] Received new sql command: 
+[2021-06-21 15:40:01] INSERT INTO hahaha VALUES ()
+[2021-06-21 15:40:05] Received new sql command: 
+[2021-06-21 15:40:05] INSERT INTO hahaha

@@ -13,9 +13,13 @@ void Interpreter::init(API *a, FileLogger *l) {
 }
 
 ExecutionResponse Interpreter::execute(string sqlCommand) {
-    logger->log("Received new sql command: " + sqlCommand);
+    logger->log("Received new sql command: ");
+    logger->log(sqlCommand);
 
     replace(sqlCommand.begin(), sqlCommand.end(), ',', ' ');
+    replace(sqlCommand.begin(), sqlCommand.end(), '\n', ' ');
+    replace(sqlCommand.begin(), sqlCommand.end(), '\"', ' ');
+    replace(sqlCommand.begin(), sqlCommand.end(), '\'', ' ');
 
     int p = 0;
     string operation = getWord(sqlCommand, &p);

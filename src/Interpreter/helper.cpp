@@ -3,7 +3,17 @@
 #include <string>
 
 string Interpreter::getWord(string s, int *from) {
-    if (s.size() <= *from) throw EOF_REACHED;
+    if (s.size() <= *from) return "";
+
+    if (s.at(*from) == '(') {
+        (*from)++;
+        return "(";
+    }
+
+    if (s.at(*from) == ')') {
+        (*from)++;
+        return ")";
+    }
 
     while (s.size() > *from + 1 && s.at(*from) == ' ') {
         (*from)++;
@@ -15,6 +25,10 @@ string Interpreter::getWord(string s, int *from) {
 
     while (s.size() > *from && s.at(*from) != ' ' &&
            currentIsLetter == isLetter(s.at(*from))) {
+        if (s.at(*from) == ')') {
+            break;
+        }
+
         r.push_back(s.at(*from));
         (*from)++;
     }
