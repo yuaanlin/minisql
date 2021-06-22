@@ -1,0 +1,30 @@
+[2021-06-23 02:08:05] Starting MiniSQL Server ...
+[2021-06-23 02:08:05] Catalog Manager Starting read table metadata files
+[2021-06-23 02:08:05] CatalogManager starting readTableFile ...
+[2021-06-23 02:08:05] Found table file table_Persons.yaml
+[2021-06-23 02:08:05] Table Persons load from file by CatalogManager successfully
+[2021-06-23 02:08:05] Catalog Manager Starting read index metadata files
+[2021-06-23 02:08:05] CatalogManager starting readIndexFile ...
+[2021-06-23 02:08:05] Found index file index_index2.yaml
+[2021-06-23 02:08:05] Index index2 load from file by CatalogManager successfully
+[2021-06-23 02:08:05] Found index file index_index1.yaml
+[2021-06-23 02:08:05] Index index1 load from file by CatalogManager successfully
+[2021-06-23 02:08:25] Received new sql command: 
+[2021-06-23 02:08:25] DROP INDEX index1
+[2021-06-23 02:09:01] Starting MiniSQL Server ...
+[2021-06-23 02:09:01] Catalog Manager Starting read table metadata files
+[2021-06-23 02:09:01] CatalogManager starting readTableFile ...
+[2021-06-23 02:09:01] Found table file table_Persons.yaml
+[2021-06-23 02:09:01] Table Persons load from file by CatalogManager successfully
+[2021-06-23 02:09:01] Catalog Manager Starting read index metadata files
+[2021-06-23 02:09:01] CatalogManager starting readIndexFile ...
+[2021-06-23 02:09:01] Found index file index_index2.yaml
+[2021-06-23 02:09:01] Index index2 load from file by CatalogManager successfully
+[2021-06-23 02:09:01] Found index file index_index1.yaml
+[2021-06-23 02:09:01] Index index1 load from file by CatalogManager successfully
+[2021-06-23 02:09:08] Received new sql command: 
+[2021-06-23 02:09:08] DROP INDEX index1
+[2021-06-23 02:09:11] Received new sql command: 
+[2021-06-23 02:09:11] DROP INDEX index1
+[2021-06-23 02:09:15] Received new sql command: 
+[2021-06-23 02:09:15] DROP INDEX index2

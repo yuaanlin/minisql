@@ -1,6 +1,7 @@
 #ifndef __minisql_record_manager__
 #define __minisql_record_manager__
 
+#include "../Condition/Condition.h"
 class API;
 class BufferManager;
 class RecordManager {

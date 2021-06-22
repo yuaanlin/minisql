@@ -81,7 +81,7 @@ ExecutionResponse Interpreter::interpretSelectOperation(string sqlCommand,
         return res;
     } catch (SelectOperationError error) {
         switch (error) {
-            case SELECTED_TABLE_NOT_EXIST:
+            case SELECTING_TABLE_NOT_EXIST:
                 ExecutionResponse res;
                 res.error = "Table with name " + tableName + " not exist.";
                 return res;

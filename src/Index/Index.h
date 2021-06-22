@@ -2,22 +2,18 @@
 #define __minisql_index_h__
 
 #include <string>
+#include "../global.h"
 
 using namespace std;
 
 class Index {
-   private:
+   public:
     string indexName;
     string tableName;
     string attributeName;
-    int dataType;
-
-   public:
-    Index(string i, string t, string a, int dt);
-    string getName();
-    string getTableName();
-    string getAttributeName();
-    int getDataType();
+    DataType dataType;
+    Index(string i, string t, string a, DataType dt);
+    Index();
 };
 
 #endif

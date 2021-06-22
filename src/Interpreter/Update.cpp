@@ -25,7 +25,6 @@ ExecutionResponse Interpreter::interpretUpdateOperation(string sqlCommand,
 
     int c = 0;
     while (w = getWord(sqlCommand, p), !isSame(w, ";") && !isSame(w, "WHERE")) {
-        logger->log(w);
         if (c % 3 == 0) {
             fields.push_back(w);
         }

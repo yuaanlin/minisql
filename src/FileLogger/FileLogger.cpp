@@ -1,5 +1,8 @@
 #include "FileLogger.h"
 #include <fstream>
+#include <filesystem>
+
+namespace fs = std::filesystem;
 
 string getTodayDate() {
     time_t rawtime;
@@ -25,8 +28,15 @@ string getCurrentTime() {
 
 void FileLogger::log(string s) {
     ofstream log;
+
+    if (!fs::is_directory("logs")) {
+        fs::create_directory("logs");
+    }
+
     log.open("logs/" + getTodayDate() + ".log",
              fstream::in | fstream::out | fstream::app);
+
     log << '[' << getCurrentTime() << "] " << s << endl;
+
     log.close();
 }

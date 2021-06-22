@@ -42,17 +42,25 @@ ExecutionResponse Interpreter::interpretCreateIndexOperation(string sqlCommand,
 
     try {
         api->createIndex(indexName, tableName, indexFields);
+        ExecutionResponse res;
+        res.error = "Index is created successfully.";
+        return res;
     } catch (CreateIndexOperationError error) {
+        ExecutionResponse res;
         switch (error) {
             case CREATED_INDEX_TABLE_NOT_EXIST:
-                ExecutionResponse res;
                 res.error = "Table with name " + tableName + " not exist";
-                return res;
+                break;
+            case INDEX_ALREADY_EXIST:
+                res.error = "Index with name " + indexName + " already exist";
+                break;
+            case CREATED_INDEX_FIELD_NOT_EXIST:
+                res.error = "Field(s) for creating index not found.";
+                break;
+            default:
+                res.error = "Create index operation not implemented yet!";
                 break;
         }
+        return res;
     }
-
-    ExecutionResponse res;
-    res.error = "Create index operation not implemented yet!";
-    return res;
 }

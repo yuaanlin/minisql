@@ -41,7 +41,8 @@ string Interpreter::getWord(string s, int *from) {
 }
 
 bool Interpreter::isLetter(char c) {
-    return (c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z');
+    return (c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') || c == '_' ||
+           (c >= '1' && c <= '9');
 }
 
 bool Interpreter::isSame(string a, string b) {

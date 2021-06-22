@@ -99,6 +99,28 @@ class API {
      * @return ExecutionResponse
      */
     void deleteRecord(string tableName, vector<Condition> conditions);
+
+    /**
+     * There is no documention for this function yet.
+     *
+     * 该函数的文档尚未完善。
+     *
+     * @param sqlCommand string
+     *
+     * @return ExecutionResponse
+     */
+    void dropTable(string tableName);
+
+    /**
+     * There is no documention for this function yet.
+     *
+     * 该函数的文档尚未完善。
+     *
+     * @param sqlCommand string
+     *
+     * @return ExecutionResponse
+     */
+    void dropIndex(string indexName);
 };
 
 #endif
