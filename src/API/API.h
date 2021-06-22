@@ -98,7 +98,7 @@ class API {
      *
      * @return ExecutionResponse
      */
-    void deleteRecord();
+    void deleteRecord(string tableName, vector<Condition> conditions);
 };
 
 #endif
