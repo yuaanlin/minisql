@@ -15,7 +15,8 @@ string Interpreter::getWord(string s, int *from) {
         return ")";
     }
 
-    while (s.size() > *from + 1 && s.at(*from) == ' ') {
+    while (s.size() > *from + 1 && (s.at(*from) == ' ') ||
+           (s.at(*from) == (char)255)) {
         (*from)++;
     }
 
@@ -96,6 +97,21 @@ string ExecutionResponse::getJson() {
                 break;
         }
         r.append(",\"type\": \"" + d + "\"");
+        r.append("}");
+    }
+    r.append("],");
+
+    r.append("\"messages\": ");
+    r.append("[");
+    first = true;
+    for (auto msg : this->messages) {
+        if (!first) r.append(",");
+        first = false;
+        r.append("{");
+        r.append("\"command\": ");
+        r.append("\"" + msg.command + "\",");
+        r.append("\"message\": ");
+        r.append("\"" + msg.message + "\"");
         r.append("}");
     }
     r.append("],");

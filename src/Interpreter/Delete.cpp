@@ -1,20 +1,22 @@
 #include "Interpreter.h"
 
-ExecutionResponse Interpreter::interpretDeleteOperation(string sqlCommand,
-                                                        int *p) {
+OneCommandExecutionResponse Interpreter::interpretDeleteOperation(
+    string sqlCommand, int *p) {
+    OneCommandExecutionResponse res;
+
+    res.cmd = sqlCommand;
+
     string w = getWord(sqlCommand, p);
 
     if (!isSame(w, "FROM")) {
-        ExecutionResponse res;
-        res.error = "Expect FROM after DELETE but got " + w;
+        res.msg = "Expect FROM after DELETE but got " + w;
         return res;
     }
 
     string tableName = getWord(sqlCommand, p);
 
     if (isKeyword(tableName)) {
-        ExecutionResponse res;
-        res.error = "Expect table name after FROM but got " + tableName;
+        res.msg = "Expect table name after FROM but got " + tableName;
         return res;
     }
 
@@ -22,8 +24,7 @@ ExecutionResponse Interpreter::interpretDeleteOperation(string sqlCommand,
     w = getWord(sqlCommand, p);
 
     if (!isSame(w, "WHERE") && w != "" && w != ";") {
-        ExecutionResponse res;
-        res.error = "Expect WHERE or nothing after table name but got " + w;
+        res.msg = "Expect WHERE or nothing after table name but got " + w;
         return res;
     }
 
@@ -42,8 +43,7 @@ ExecutionResponse Interpreter::interpretDeleteOperation(string sqlCommand,
             }
 
             if (isSame(w, "OR")) {
-                ExecutionResponse res;
-                res.error = "Our MiniSQL has not implement OR condition yet!";
+                res.msg = "Our MiniSQL has not implement OR condition yet!";
                 return res;
             }
 
@@ -72,7 +72,6 @@ ExecutionResponse Interpreter::interpretDeleteOperation(string sqlCommand,
 
     api->deleteRecord(tableName, conditions);
 
-    ExecutionResponse res;
-    res.error = "Delete operation not implemented yet!";
+    res.msg = "Delete operation not implemented yet!";
     return res;
 }

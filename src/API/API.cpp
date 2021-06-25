@@ -15,15 +15,48 @@ Records API::selectRecords(string tableName, vector<string> columns,
     if (!catalogManager->isTableExist(tableName))
         throw SELECTING_TABLE_NOT_EXIST;
 
-    // TODO: Check field in conditions exist
+    Table t = this->catalogManager->getTable(tableName);
 
     // TODO: Call IndexManager to get possible index
 
     Records records = this->recordManager->selectRecord(tableName, conditions);
 
+    if (columns.size() == 1 && columns[0] == "*") {
+        return records;
+    }
+
+    vector<int> fieldIndex;
+
+    for (auto col : columns) {
+        int i = 0;
+        bool found = false;
+        for (auto attr : t.attributes) {
+            if (attr.name == col) {
+                fieldIndex.push_back(i);
+                found = true;
+                break;
+            }
+            i++;
+        }
+        if (!found) {
+            logger->log("attribute " + col + " not in the table " + tableName);
+            throw 1;
+        }
+    }
+
+    Records recordsOnlySelectedCols;
+
+    for (auto record : records) {
+        vector<string> n;
+        for (auto i : fieldIndex) {
+            n.push_back(record[i]);
+        }
+        recordsOnlySelectedCols.push_back(n);
+    }
+
     logger->log("API select record done, preparing response ...");
 
-    return records;
+    return recordsOnlySelectedCols;
 }
 
 void API::createTable(string tableName, vector<Attribute> attrs) {

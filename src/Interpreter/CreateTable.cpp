@@ -1,7 +1,11 @@
 #include "Interpreter.h"
 
-ExecutionResponse Interpreter::interpretCreateTableOperation(string sqlCommand,
-                                                             int *p) {
+OneCommandExecutionResponse Interpreter::interpretCreateTableOperation(
+    string sqlCommand, int *p) {
+    OneCommandExecutionResponse res;
+
+    res.cmd = sqlCommand;
+
     logger->log("Interpreter starting interpret create table command");
 
     string tableName = getWord(sqlCommand, p);
@@ -14,8 +18,7 @@ ExecutionResponse Interpreter::interpretCreateTableOperation(string sqlCommand,
     w = getWord(sqlCommand, p);
 
     if (w != "(") {
-        ExecutionResponse res;
-        res.error = "Expect fields definition after table name";
+        res.msg = "Expect fields definition after table name";
         return res;
     }
 
@@ -35,8 +38,7 @@ ExecutionResponse Interpreter::interpretCreateTableOperation(string sqlCommand,
             if (!isSame(w, "int") && !isSame(w, "varchar") &&
                 !isSame(w, "string") && !isSame(w, "char") &&
                 !isSame(w, "float")) {
-                ExecutionResponse res;
-                res.error = "Expect data type but got  \\\"" + w + "\\\"";
+                res.msg = "Expect data type but got  \\\"" + w + "\\\"";
                 return res;
             }
             if (isSame(w, "int")) {
@@ -57,17 +59,15 @@ ExecutionResponse Interpreter::interpretCreateTableOperation(string sqlCommand,
 
     try {
         api->createTable(tableName, attrs);
-        ExecutionResponse res;
-        res.error = "Table with name " + tableName + " created successfully";
+        res.msg = "Table with name " + tableName + " created successfully";
         return res;
     } catch (CreateTableOperationError error) {
-        ExecutionResponse res;
         switch (error) {
             case TABLE_ALREADY_EXIST:
-                res.error = "Table with name " + tableName + " already exist!";
+                res.msg = "Table with name " + tableName + " already exist!";
                 break;
             default:
-                res.error = "Unknow error occurred";
+                res.msg = "Unknow error occurred";
                 break;
         }
         return res;

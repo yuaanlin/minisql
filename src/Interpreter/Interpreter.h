@@ -10,10 +10,25 @@
 
 using namespace std;
 
+class ExecutionMessage {
+   public:
+    string command;
+    string message;
+};
+
+class OneCommandExecutionResponse {
+   public:
+    Records results;
+    vector<Attribute> fields;
+    string cmd;
+    string msg;
+};
+
 class ExecutionResponse {
    public:
     Records results;
     vector<Attribute> fields;
+    vector<ExecutionMessage> messages;
     string error;
     string getJson();
 };
@@ -34,7 +49,7 @@ class Interpreter {
      *
      * @return ExecutionResponse
      */
-    ExecutionResponse execute(string sqlCommand);
+    OneCommandExecutionResponse execute(string sqlCommand);
 
     /**
      * There is no documention for this function yet.
@@ -104,7 +119,7 @@ class Interpreter {
      * @param sql string
      * @param p *int
      */
-    ExecutionResponse interpretSelectOperation(string sql, int *p);
+    OneCommandExecutionResponse interpretSelectOperation(string sql, int *p);
 
     /**
      * There is no documention for this function yet.
@@ -114,7 +129,8 @@ class Interpreter {
      * @param sql string
      * @param p *int
      */
-    ExecutionResponse interpretCreateTableOperation(string sql, int *p);
+    OneCommandExecutionResponse interpretCreateTableOperation(string sql,
+                                                              int *p);
 
     /**
      * There is no documention for this function yet.
@@ -124,7 +140,8 @@ class Interpreter {
      * @param sql string
      * @param p *int
      */
-    ExecutionResponse interpretCreateIndexOperation(string sql, int *p);
+    OneCommandExecutionResponse interpretCreateIndexOperation(string sql,
+                                                              int *p);
 
     /**
      * There is no documention for this function yet.
@@ -134,7 +151,7 @@ class Interpreter {
      * @param sql string
      * @param p *int
      */
-    ExecutionResponse interpretDropTableOperation(string sql, int *p);
+    OneCommandExecutionResponse interpretDropTableOperation(string sql, int *p);
 
     /**
      * There is no documention for this function yet.
@@ -144,7 +161,7 @@ class Interpreter {
      * @param sql string
      * @param p *int
      */
-    ExecutionResponse interpretDropIndexOperation(string sql, int *p);
+    OneCommandExecutionResponse interpretDropIndexOperation(string sql, int *p);
 
     /**
      * There is no documention for this function yet.
@@ -154,7 +171,7 @@ class Interpreter {
      * @param sql string
      * @param p *int
      */
-    ExecutionResponse interpretUpdateOperation(string sql, int *p);
+    OneCommandExecutionResponse interpretUpdateOperation(string sql, int *p);
 
     /**
      * There is no documention for this function yet.
@@ -164,7 +181,7 @@ class Interpreter {
      * @param sql string
      * @param p *int
      */
-    ExecutionResponse interpretDeleteOperation(string sql, int *p);
+    OneCommandExecutionResponse interpretDeleteOperation(string sql, int *p);
 
     /**
      * There is no documention for this function yet.
@@ -174,7 +191,7 @@ class Interpreter {
      * @param sql string
      * @param p *int
      */
-    ExecutionResponse interpretInsertOperation(string sql, int *p);
+    OneCommandExecutionResponse interpretInsertOperation(string sql, int *p);
 };
 
 #endif

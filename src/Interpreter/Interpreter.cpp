@@ -13,9 +13,11 @@ void Interpreter::init(API *a, FileLogger *l, CatalogManager *c) {
     logger = l;
 }
 
-ExecutionResponse Interpreter::execute(string sqlCommand) {
+OneCommandExecutionResponse Interpreter::execute(string sqlCommand) {
     logger->log("Received new sql command: ");
     logger->log(sqlCommand);
+    OneCommandExecutionResponse res;
+    res.cmd = sqlCommand;
 
     replace(sqlCommand.begin(), sqlCommand.end(), ',', ' ');
     replace(sqlCommand.begin(), sqlCommand.end(), '\n', ' ');
@@ -53,8 +55,7 @@ ExecutionResponse Interpreter::execute(string sqlCommand) {
             return interpretCreateTableOperation(sqlCommand, &p);
         }
 
-        ExecutionResponse res;
-        res.error = "Expect INDEX or TABLE after CREATE";
+        res.msg = "Expect INDEX or TABLE after CREATE";
         return res;
     }
 
@@ -68,13 +69,13 @@ ExecutionResponse Interpreter::execute(string sqlCommand) {
             return interpretDropTableOperation(sqlCommand, &p);
         }
 
-        ExecutionResponse res;
-        res.error = "Expect INDEX or TABLE after DROP";
+        res.msg = "Expect INDEX or TABLE after DROP";
         return res;
     }
 
-    ExecutionResponse res;
-    res.error =
+    logger->log(to_string((int)operation[0]));
+
+    res.msg =
         "Got unknow operation, expect CREATE, DROP, INSERT, UPDATE, DELETE or "
         "SELECT, but got " +
         operation;

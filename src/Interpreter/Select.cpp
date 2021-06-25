@@ -1,7 +1,10 @@
 #include "Interpreter.h"
 
-ExecutionResponse Interpreter::interpretSelectOperation(string sqlCommand,
-                                                        int *p) {
+OneCommandExecutionResponse Interpreter::interpretSelectOperation(
+    string sqlCommand, int *p) {
+    OneCommandExecutionResponse res;
+    res.cmd = sqlCommand;
+
     vector<string> cols;
     string col;
 
@@ -10,8 +13,7 @@ ExecutionResponse Interpreter::interpretSelectOperation(string sqlCommand,
     }
 
     if (!isSame(col, "FROM")) {
-        ExecutionResponse res;
-        res.error =
+        res.msg =
             "Expected FROM but got " + col + " at position " + to_string(*p);
         return res;
     }
@@ -19,9 +21,8 @@ ExecutionResponse Interpreter::interpretSelectOperation(string sqlCommand,
     string tableName = getWord(sqlCommand, p);
 
     if (isKeyword(tableName)) {
-        ExecutionResponse res;
-        res.error = "Expected table name but got " + col + " at position " +
-                    to_string(*p);
+        res.msg = "Expected table name but got " + col + " at position " +
+                  to_string(*p);
         return res;
     }
 
@@ -46,8 +47,7 @@ ExecutionResponse Interpreter::interpretSelectOperation(string sqlCommand,
             }
 
             if (isSame(w, "OR")) {
-                ExecutionResponse res;
-                res.error = "Our MiniSQL has not implement OR condition yet!";
+                res.msg = "Our MiniSQL has not implement OR condition yet!";
                 return res;
             }
 
@@ -74,16 +74,26 @@ ExecutionResponse Interpreter::interpretSelectOperation(string sqlCommand,
         }
     }
 
+    vector<Attribute> selectedAttrs;
+    for (auto col : cols) {
+        for (auto attr : attributes) {
+            if (attr.name == col) {
+                selectedAttrs.push_back(attr);
+                break;
+            }
+        }
+    }
+
     try {
-        ExecutionResponse res;
-        res.fields = attributes;
+        res.fields = (cols.size() == 1 && cols.at(0) == "*") ? attributes
+                                                             : selectedAttrs;
         res.results = this->api->selectRecords(tableName, cols, conditions);
+        res.msg = "found " + to_string(res.results.size()) + " results";
         return res;
     } catch (SelectOperationError error) {
         switch (error) {
             case SELECTING_TABLE_NOT_EXIST:
-                ExecutionResponse res;
-                res.error = "Table with name " + tableName + " not exist.";
+                res.msg = "Table with name " + tableName + " not exist.";
                 return res;
                 break;
         }

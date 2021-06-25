@@ -6,7 +6,7 @@
 
 namespace fs = std::filesystem;
 
-#define RECORD_PER_BLOCK 100
+#define RECORD_PER_BLOCK 60
 
 void FakeRecordManager::init(FileLogger *l, CatalogManager *c) {
     this->catalogManager = c;
@@ -17,6 +17,7 @@ void FakeRecordManager::init(FileLogger *l, CatalogManager *c) {
     for (auto t : tables) {
         tableNames.push_back(t.name);
     }
+
     this->readTablesFromFiles(tableNames);
 }
 
@@ -34,7 +35,17 @@ void FakeRecordManager::saveTablesToFiles() {
         for (auto block : table.second) {
             for (auto record : block) {
                 unsigned int recordSize = 0;
+
+                for (auto col : record) {
+                    for (auto c : col) {
+                        recordSize++;
+                    }
+                    recordSize++;
+                }
+                recordSize++;
+
                 char *buffer = new char[recordSize];
+
                 int idx = 0;
                 for (auto col : record) {
                     for (auto c : col) {
@@ -42,8 +53,9 @@ void FakeRecordManager::saveTablesToFiles() {
                     }
                     buffer[idx++] = '\0';
                 }
+
                 buffer[idx++] = '\n';
-                data.write(buffer, idx);
+                data.write(buffer, recordSize);
             }
         }
         data.close();
@@ -90,6 +102,8 @@ void FakeRecordManager::readTablesFromFiles(vector<string> tableNames) {
             count++;
         }
 
+        ft->push_back(*rb);
+
         this->tables[tableName] = *ft;
 
         logger->log("Read data from data/" + tableName + " successfully");
@@ -106,12 +120,64 @@ Records FakeRecordManager::selectRecord(string tableName,
 
     logger->log("RecordManager starting select records ...");
 
+    Table t = this->catalogManager->getTable(tableName);
+
+    vector<int> conditionAttrIndex;
+
+    for (auto c : conditions) {
+        int i = 0;
+        bool found = false;
+        for (auto attr : t.attributes) {
+            if (c.attributeName == attr.name) {
+                conditionAttrIndex.push_back(i);
+                found = true;
+                break;
+            }
+            i++;
+        }
+        if (!found) {
+            throw 1;
+        }
+    }
+
     Records r;
 
     for (auto block : table) {
         for (auto record : block) {
-            // TODO: Check Condition
-            r.push_back(record);
+            bool check = true;
+            for (int i = 0; i < conditionAttrIndex.size(); i++) {
+                switch (conditions[i].operate) {
+                    case Condition::EQ_OPERATOR:
+                        if (record[conditionAttrIndex[i]] !=
+                            conditions[i].value)
+                            check = false;
+                        break;
+                    case Condition::NEQ_OPERATOR:
+                        if (record[conditionAttrIndex[i]] ==
+                            conditions[i].value)
+                            check = false;
+                        break;
+                    case Condition::LT_OPERATOR:
+                        if (record[conditionAttrIndex[i]] >=
+                            conditions[i].value)
+                            check = false;
+                        break;
+                    case Condition::LTE_OPERATOR:
+                        if (record[conditionAttrIndex[i]] > conditions[i].value)
+                            check = false;
+                        break;
+                    case Condition::BT_OPERATOR:
+                        if (record[conditionAttrIndex[i]] <=
+                            conditions[i].value)
+                            check = false;
+                        break;
+                    case Condition::BTE_OPERATOR:
+                        if (record[conditionAttrIndex[i]] < conditions[i].value)
+                            check = false;
+                        break;
+                }
+            }
+            if (check) r.push_back(record);
         }
     }
 

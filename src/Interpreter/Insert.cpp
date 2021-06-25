@@ -1,12 +1,14 @@
 #include "Interpreter.h"
 
-ExecutionResponse Interpreter::interpretInsertOperation(string sqlCommand,
-                                                        int *p) {
+OneCommandExecutionResponse Interpreter::interpretInsertOperation(
+    string sqlCommand, int *p) {
+    OneCommandExecutionResponse res;
+    res.cmd = sqlCommand;
+
     string w = getWord(sqlCommand, p);
 
     if (!isSame(w, "INTO")) {
-        ExecutionResponse res;
-        res.error = "Expect INTO after INSERT but got " + w;
+        res.msg = "Expect INTO after INSERT but got " + w;
         return res;
     }
 
@@ -15,16 +17,14 @@ ExecutionResponse Interpreter::interpretInsertOperation(string sqlCommand,
     w = getWord(sqlCommand, p);
 
     if (!isSame(w, "VALUES")) {
-        ExecutionResponse res;
-        res.error = "Expect VALUES after table name but got " + w;
+        res.msg = "Expect VALUES after table name but got " + w;
         return res;
     }
 
     w = getWord(sqlCommand, p);
 
     if (!isSame(w, "(")) {
-        ExecutionResponse res;
-        res.error = "Expect ( after VALUES but got " + w;
+        res.msg = "Expect ( after VALUES but got " + w;
         return res;
     }
 
@@ -37,14 +37,12 @@ ExecutionResponse Interpreter::interpretInsertOperation(string sqlCommand,
 
     try {
         api->insertRecord(tableName, values);
-        ExecutionResponse res;
-        res.error = "Insert successfully.";
+        res.msg = "Insert successfully.";
         return res;
     } catch (InsertOperationError error) {
         switch (error) {
             case INSERTING_TABLE_NOT_EXIST:
-                ExecutionResponse res;
-                res.error = "Table with name " + tableName + " not exist.";
+                res.msg = "Table with name " + tableName + " not exist.";
                 return res;
                 break;
         }

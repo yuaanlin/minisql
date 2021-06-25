@@ -1,22 +1,22 @@
 #include "Interpreter.h"
 
-ExecutionResponse Interpreter::interpretUpdateOperation(string sqlCommand,
-                                                        int *p) {
+OneCommandExecutionResponse Interpreter::interpretUpdateOperation(
+    string sqlCommand, int *p) {
+    OneCommandExecutionResponse res;
+    res.cmd = sqlCommand;
     logger->log("Interpreter starting interpert UPDATE operation");
 
     string tableName = getWord(sqlCommand, p);
 
     if (isKeyword(tableName)) {
-        ExecutionResponse res;
-        res.error = "Expect table name after UPDATE but got " + tableName;
+        res.msg = "Expect table name after UPDATE but got " + tableName;
         return res;
     }
 
     string w = getWord(sqlCommand, p);
 
     if (!isSame(w, "SET")) {
-        ExecutionResponse res;
-        res.error = "Expect SET after table name but got " + w;
+        res.msg = "Expect SET after table name but got " + w;
         return res;
     }
 
@@ -30,8 +30,7 @@ ExecutionResponse Interpreter::interpretUpdateOperation(string sqlCommand,
         }
         if (c % 3 == 1) {
             if (!isSame(w, "=")) {
-                ExecutionResponse res;
-                res.error = "Expect = after field name but got " + w;
+                res.msg = "Expect = after field name but got " + w;
                 return res;
             }
         }
@@ -59,8 +58,7 @@ ExecutionResponse Interpreter::interpretUpdateOperation(string sqlCommand,
             }
 
             if (isSame(w, "OR")) {
-                ExecutionResponse res;
-                res.error = "Our MiniSQL has not implement OR condition yet!";
+                res.msg = "Our MiniSQL has not implement OR condition yet!";
                 return res;
             }
 
@@ -89,20 +87,17 @@ ExecutionResponse Interpreter::interpretUpdateOperation(string sqlCommand,
 
     try {
         api->updateRecord(tableName, fields, values, conditions);
-        ExecutionResponse res;
-        res.error = "Updated records successfully.";
+        res.msg = "Updated records successfully.";
         return res;
     } catch (UpdateOperationError error) {
         switch (error) {
             case UPDATED_TABLE_NOT_EXIST:
-                ExecutionResponse res;
-                res.error = "Table with name " + tableName + " does not exist";
+                res.msg = "Table with name " + tableName + " does not exist";
                 return res;
                 break;
         }
     }
 
-    ExecutionResponse res;
-    res.error = "Unknow error occurred";
+    res.msg = "Unknow error occurred";
     return res;
 }

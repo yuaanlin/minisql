@@ -1,14 +1,17 @@
 #include "Interpreter.h"
 
-ExecutionResponse Interpreter::interpretDropTableOperation(string sqlCommand,
-                                                           int *p) {
+OneCommandExecutionResponse Interpreter::interpretDropTableOperation(
+    string sqlCommand, int *p) {
+    OneCommandExecutionResponse res;
+
+    res.cmd = sqlCommand;
+
     logger->log("Interpreter starting interpret drop table command");
 
     string tableName = getWord(sqlCommand, p);
 
     if (tableName == "" || isKeyword(tableName)) {
-        ExecutionResponse res;
-        res.error = "Expect table name but got " + tableName;
+        res.msg = "Expect table name but got " + tableName;
         return res;
     }
 
@@ -16,18 +19,16 @@ ExecutionResponse Interpreter::interpretDropTableOperation(string sqlCommand,
 
     try {
         api->dropTable(tableName);
-        ExecutionResponse res;
-        res.error = "Drop table successfully.";
+        res.msg = "Drop table successfully.";
         return res;
     } catch (DropTableOperationError error) {
-        ExecutionResponse res;
-        res.error = "Unknow error occurred.";
+        res.msg = "Unknow error occurred.";
         switch (error) {
             case DROPING_TABLE_NOT_EXIST:
-                res.error = "Table with name " + tableName + " not exist.";
+                res.msg = "Table with name " + tableName + " not exist.";
                 break;
             case REMOVE_TABLE_FILE_FAILED:
-                res.error = "CatalogManager failed to remove metadata file.";
+                res.msg = "CatalogManager failed to remove metadata file.";
                 break;
         }
         return res;

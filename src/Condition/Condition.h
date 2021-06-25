@@ -7,12 +7,10 @@ using namespace std;
 
 /* A query condition */
 class Condition {
-   private:
+   public:
     string attributeName;
     char operate;
     string value;
-
-   public:
     const static int EQ_OPERATOR = 0;   // =
     const static int NEQ_OPERATOR = 1;  // <>
     const static int BT_OPERATOR = 2;   // >
