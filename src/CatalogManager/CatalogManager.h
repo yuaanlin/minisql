@@ -144,6 +144,17 @@ class CatalogManager {
      *
      * @return ExecutionResponse
      */
+    vector<Table> getTables();
+
+    /**
+     * There is no documention for this function yet.
+     *
+     * 该函数的文档尚未完善。
+     *
+     * @param sqlCommand string
+     *
+     * @return ExecutionResponse
+     */
     Index getIndex(string indexName);
 
     /**

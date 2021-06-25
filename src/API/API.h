@@ -4,8 +4,9 @@
 #include "../global.h"
 #include "../CatalogManager/CatalogManager.h"
 #include "../Condition/Condition.h"
-#include "../RecordManager/RecordManager.h"
+// #include "../RecordManager/RecordManager.h"
 #include "../IndexManager/IndexManager.h"
+#include "../FakeRecordManager/FakeRecordManager.h"
 
 #include <vector>
 #include <string>
@@ -15,7 +16,7 @@ using namespace std;
 class API {
    private:
     CatalogManager *catalogManager;
-    RecordManager *recordManager;
+    FakeRecordManager *recordManager;
     IndexManager *indexManager;
     FileLogger *logger;
 
@@ -29,7 +30,7 @@ class API {
      *
      * @return ExecutionResponse
      */
-    void init(CatalogManager *c, RecordManager *r, IndexManager *ind,
+    void init(CatalogManager *c, FakeRecordManager *r, IndexManager *ind,
               FileLogger *logger);
 
     /**

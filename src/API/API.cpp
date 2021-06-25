@@ -1,6 +1,6 @@
 #include "API.h"
 
-void API::init(CatalogManager *c, RecordManager *r, IndexManager *ind,
+void API::init(CatalogManager *c, FakeRecordManager *r, IndexManager *ind,
                FileLogger *l) {
     catalogManager = c;
     recordManager = r;
@@ -10,6 +10,8 @@ void API::init(CatalogManager *c, RecordManager *r, IndexManager *ind,
 
 Records API::selectRecords(string tableName, vector<string> columns,
                            vector<Condition> conditions) {
+    logger->log("API starting select record.");
+
     if (!catalogManager->isTableExist(tableName))
         throw SELECTING_TABLE_NOT_EXIST;
 
@@ -17,10 +19,11 @@ Records API::selectRecords(string tableName, vector<string> columns,
 
     // TODO: Call IndexManager to get possible index
 
-    // TODO: Call RecordManager to get Records
+    Records records = this->recordManager->selectRecord(tableName, conditions);
 
-    Records r;
-    return r;
+    logger->log("API select record done, preparing response ...");
+
+    return records;
 }
 
 void API::createTable(string tableName, vector<Attribute> attrs) {
@@ -30,14 +33,18 @@ void API::createTable(string tableName, vector<Attribute> attrs) {
 
     // TODO: Call IndexManager to create Primary Key index
 
-    // TODO: Call RecordManager to create data file
+    recordManager->createTable(tableName);
 }
 
 void API::insertRecord(string tableName, vector<string> values) {
+    logger->log("API starting insert record.");
+
     if (!catalogManager->isTableExist(tableName))
         throw INSERTING_TABLE_NOT_EXIST;
 
-    // TODO: Call Record Manager to insert record
+    logger->log("insert record request validated.");
+
+    this->recordManager->insertRecord(tableName, values);
 }
 
 void API::createIndex(string indexName, string tableName,
@@ -104,8 +111,7 @@ void API::dropTable(string tableName) {
 
     catalogManager->dropTable(tableName);
 
-    // TODO: Call RecordManager::droptable
-    // recordManager->dropTable(tableName);
+    recordManager->dropTable(tableName);
 
     logger->log("API drop table finished");
 }

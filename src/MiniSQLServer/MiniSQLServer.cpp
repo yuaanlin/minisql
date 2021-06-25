@@ -11,19 +11,19 @@ MiniSQLServer::MiniSQLServer() {
     this->catalogManager = new CatalogManager();
     this->indexManager = new IndexManager();
     this->interpreter = new Interpreter();
-    this->recordManager = new RecordManager();
+    this->recordManager = new FakeRecordManager();
 
     FileLogger *logger = new FileLogger();
 
     logger->log("Starting MiniSQL Server ...");
 
-    this->indexManager->init(this->api, this->bufferManager);
-    this->recordManager->init(this->api, this->bufferManager);
     this->catalogManager->init(this->api, logger);
+    this->recordManager->init(logger, this->catalogManager);
+    this->indexManager->init(this->api, this->bufferManager);
     this->api->init(this->catalogManager, this->recordManager,
                     this->indexManager, logger);
     this->bufferManager->init();
-    this->interpreter->init(this->api, logger);
+    this->interpreter->init(this->api, logger, this->catalogManager);
 }
 
 void MiniSQLServer::run() {

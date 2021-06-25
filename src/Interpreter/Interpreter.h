@@ -22,6 +22,7 @@ class Interpreter {
    private:
     FileLogger *logger;
     API *api;
+    CatalogManager *catalogManager;
 
    public:
     /**
@@ -43,7 +44,7 @@ class Interpreter {
      * @param a API
      * @param l Logger
      */
-    void init(API *a, FileLogger *l);
+    void init(API *a, FileLogger *l, CatalogManager *c);
 
     /**
      * Read an word from the position of given string.
@@ -61,9 +62,10 @@ class Interpreter {
     string getWord(string s, int *from);
 
     /**
-     * There is no documention for this function yet.
+     * Check if current char is still a part of word.
      *
-     * 该函数的文档尚未完善。
+     * 检查当前字符是否仍然是一个单词的一部分，如果遇到不属于 a-z, A-Z, 0-9, _,
+     * - 的其它字符将会返回 false，即该字符不是上一个单词的一部分
      *
      * @param c char
      *

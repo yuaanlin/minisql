@@ -9,9 +9,6 @@ ExecutionResponse Interpreter::interpretSelectOperation(string sqlCommand,
         cols.push_back(col);
     }
 
-    vector<Attribute> attributes;
-    // TODO: Get attributes from Catalog Manager
-
     if (!isSame(col, "FROM")) {
         ExecutionResponse res;
         res.error =
@@ -27,6 +24,9 @@ ExecutionResponse Interpreter::interpretSelectOperation(string sqlCommand,
                     to_string(*p);
         return res;
     }
+
+    vector<Attribute> attributes =
+        this->catalogManager->getTable(tableName).attributes;
 
     vector<Condition> conditions;
     string w = getWord(sqlCommand, p);

@@ -1,5 +1,7 @@
 #include "MiniSQLServer/MiniSQLServer.h"
 #include <iostream>
+#include <fstream>
+#include "FakeRecordManager/FakeRecordManager.h"
 
 using namespace std;
 

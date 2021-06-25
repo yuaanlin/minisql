@@ -1,0 +1,8 @@
+name: student2
+attributes: 
+	- name: id
+	  type: 0
+	- name: name
+	  type: 2
+	- name: score
+	  type: 1

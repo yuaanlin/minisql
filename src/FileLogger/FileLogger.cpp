@@ -27,6 +27,8 @@ string getCurrentTime() {
 }
 
 void FileLogger::log(string s) {
+    return;
+
     ofstream log;
 
     if (!fs::is_directory("logs")) {

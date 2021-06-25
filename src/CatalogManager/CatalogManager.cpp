@@ -19,6 +19,14 @@ void CatalogManager::init(API *a, FileLogger *l) {
     readIndexFiles();
 }
 
+vector<Table> CatalogManager::getTables() {
+    vector<Table> tables;
+    for (auto table : this->tables) {
+        tables.push_back(table.second);
+    }
+    return tables;
+}
+
 void CatalogManager::createTable(Table table) {
     if (isTableExist(table.name)) throw TABLE_ALREADY_EXIST;
     this->tables[table.name] = table;

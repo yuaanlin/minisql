@@ -41,8 +41,8 @@ string Interpreter::getWord(string s, int *from) {
 }
 
 bool Interpreter::isLetter(char c) {
-    return (c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') || c == '_' ||
-           (c >= '1' && c <= '9');
+    return (c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') || (c == '_') ||
+           (c >= '0' && c <= '9') || (c == '.') || (c == '-');
 }
 
 bool Interpreter::isSame(string a, string b) {
@@ -52,19 +52,24 @@ bool Interpreter::isSame(string a, string b) {
 }
 
 string ExecutionResponse::getJson() {
+    FileLogger logger;
+
+    logger.log("Starting parsing response into json ...");
+
     string r = "{";
 
     /* Print results */
     r.append("\"results\": [");
+    bool firstRecord = true;
     for (auto res : this->results) {
+        if (!firstRecord) r.append(",");
+        firstRecord = false;
         r.append("[");
         bool firstCol = true;
         for (auto resCol : res) {
-            if (!firstCol) {
-                r.append(",");
-            }
+            if (!firstCol) r.append(",");
             firstCol = false;
-            r.append(resCol);
+            r.append("\"" + resCol + "\"");
         }
         r.append("]");
     }
@@ -72,9 +77,12 @@ string ExecutionResponse::getJson() {
 
     /* Print fields */
     r.append("\"fields\": [");
+    bool first = true;
     for (auto f : this->fields) {
+        if (!first) r.append(",");
+        first = false;
         r.append("{");
-        r.append("\"name\": " + f.name);
+        r.append("\"name\": \"" + f.name + "\"");
         string d;
         switch (f.dataType) {
             case DataType::Float:
@@ -87,7 +95,7 @@ string ExecutionResponse::getJson() {
                 d = "string";
                 break;
         }
-        r.append(",\"type\": " + d);
+        r.append(",\"type\": \"" + d + "\"");
         r.append("}");
     }
     r.append("],");
@@ -96,6 +104,9 @@ string ExecutionResponse::getJson() {
     r.append("\"error\": \"" + this->error + "\"");
 
     r.append("}");
+
+    logger.log("JSON Response parsed successfully!");
+
     return r;
 }
 

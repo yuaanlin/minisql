@@ -2,7 +2,7 @@
 #define __minisql_server_h__
 
 #include "../CatalogManager/CatalogManager.h"
-#include "../RecordManager/RecordManager.h"
+#include "../FakeRecordManager/FakeRecordManager.h"
 #include "../IndexManager/IndexManager.h"
 #include "../Interpreter/Interpreter.h"
 #include "../BufferManager/BufferManager.h"
@@ -11,7 +11,7 @@
 class MiniSQLServer {
    private:
     IndexManager *indexManager;
-    RecordManager *recordManager;
+    FakeRecordManager *recordManager;
     CatalogManager *catalogManager;
     Interpreter *interpreter;
     API *api;

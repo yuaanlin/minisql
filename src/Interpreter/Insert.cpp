@@ -31,6 +31,7 @@ ExecutionResponse Interpreter::interpretInsertOperation(string sqlCommand,
     vector<string> values;
 
     while (w = getWord(sqlCommand, p), w.rfind(")", 0) != 0) {
+        logger->log(w);
         values.push_back(w);
     }
 

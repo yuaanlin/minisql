@@ -7,7 +7,8 @@
 
 using namespace std;
 
-void Interpreter::init(API *a, FileLogger *l) {
+void Interpreter::init(API *a, FileLogger *l, CatalogManager *c) {
+    catalogManager = c;
     api = a;
     logger = l;
 }
@@ -19,6 +20,8 @@ ExecutionResponse Interpreter::execute(string sqlCommand) {
     replace(sqlCommand.begin(), sqlCommand.end(), ',', ' ');
     replace(sqlCommand.begin(), sqlCommand.end(), '\n', ' ');
     replace(sqlCommand.begin(), sqlCommand.end(), '\"', ' ');
+    replace(sqlCommand.begin(), sqlCommand.end(), '\t', ' ');
+    replace(sqlCommand.begin(), sqlCommand.end(), (char)13, ' ');
     replace(sqlCommand.begin(), sqlCommand.end(), '\'', ' ');
 
     int p = 0;
