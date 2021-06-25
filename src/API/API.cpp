@@ -61,4 +61,4 @@ void API::updateRecord(string tableName, vector<string> fields,
     // TODO: Call RecordManager to update records
 }
 
-void deleteRecord(string tableName, vector<Condition> conditions) {}
+void API::deleteRecord(string tableName, vector<Condition> conditions) {}

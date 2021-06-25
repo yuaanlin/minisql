@@ -3,6 +3,10 @@
 
 class API;
 class BufferManager;
+
+#include "../Condition/Condition.h"
+#include "../global.h"
+
 class RecordManager {
    private:
     API *api;
@@ -31,13 +35,11 @@ class RecordManager {
     int deleteRecord(string table_name, vector<Condition> conditions);
 
     // 功能：返回所有满足 conditions 的记录
-    vector<vector<string>> selectRecord(string tableName,
-                                        vector<Condition> conditions);
+    Records selectRecord(string tableName, vector<Condition> conditions);
 
     // 功能：返回所有满足 conditions 的记录
-    vector<vector<string>> selectRecordByOffset(string tableName,
-                                                vector<Condition> conditions,
-                                                int offset);
+    Records selectRecordByOffset(string tableName, vector<Condition> conditions,
+                                 int offset);
 
     // 功能：对表中已经存在的记录建立索引
     void indexRecords(string tableName, string attrName);

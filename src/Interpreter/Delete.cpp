@@ -19,7 +19,7 @@ ExecutionResponse Interpreter::interpretDeleteOperation(string sqlCommand,
     }
 
     vector<Condition> conditions;
-    string w = getWord(sqlCommand, p);
+    w = getWord(sqlCommand, p);
 
     if (!isSame(w, "WHERE") && w != "" && w != ";") {
         ExecutionResponse res;
