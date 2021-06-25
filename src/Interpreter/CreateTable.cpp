@@ -49,16 +49,15 @@ ExecutionResponse Interpreter::interpretCreateTableOperation(string sqlCommand,
         res.error = "Table with name " + tableName + " created successfully";
         return res;
     } catch (CreateTableOperationError error) {
+        ExecutionResponse res;
         switch (error) {
             case TABLE_ALREADY_EXIST:
-                ExecutionResponse res;
                 res.error = "Table with name " + tableName + " already exist!";
-                return res;
+                break;
+            default:
+                res.error = "Unknow error occurred";
                 break;
         }
+        return res;
     }
-
-    ExecutionResponse res;
-    res.error = "Unknow error occurred";
-    return res;
 }

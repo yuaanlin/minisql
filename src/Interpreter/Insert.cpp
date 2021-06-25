@@ -37,11 +37,11 @@ ExecutionResponse Interpreter::interpretInsertOperation(string sqlCommand,
     try {
         api->insertRecord(tableName, values);
         ExecutionResponse res;
-        res.error = "Insert operation not implemented yet!";
+        res.error = "Insert successfully.";
         return res;
     } catch (InsertOperationError error) {
         switch (error) {
-            case INSERTED_TABLE_NOT_EXIST:
+            case INSERTING_TABLE_NOT_EXIST:
                 ExecutionResponse res;
                 res.error = "Table with name " + tableName + " not exist.";
                 return res;
