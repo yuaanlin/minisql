@@ -17,7 +17,23 @@ Records API::selectRecords(string tableName, vector<string> columns,
 
     Table t = this->catalogManager->getTable(tableName);
 
-    // TODO: Call IndexManager to get possible index
+    Index *i = NULL;
+    string valueForIndex = "";
+
+    for (auto c : conditions) {
+        i = this->catalogManager->getIndex(tableName, c.attributeName);
+        if (i != NULL) {
+            valueForIndex = c.value;
+            logger->log("found index " + i->indexName + " can use!");
+            break;
+        }
+    }
+
+    int offset = 0;
+    if (i != NULL) {
+        offset = indexManager->search(i->indexName, valueForIndex);
+        logger->log("the record is at block " + to_string(offset));
+    }
 
     Records records = this->recordManager->selectRecord(tableName, conditions);
 
@@ -108,9 +124,16 @@ void API::createIndex(string indexName, string tableName,
         i->dataType = dt;
 
         catalogManager->createIndex(*i);
-    }
 
-    // TODO: Call IndexManager to create Indexes
+        Table t = catalogManager->getTable(tableName);
+
+        vector<string> attr;
+        attr.push_back(f);
+
+        auto attrIndex = recordManager->getAttrIndex(t.attributes, attr);
+
+        indexManager->CreateOne(*i, attrIndex.at(0));
+    }
 
     logger->log("API create index finished.");
 }

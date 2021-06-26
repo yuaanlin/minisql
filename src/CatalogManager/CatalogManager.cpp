@@ -217,3 +217,13 @@ DataType CatalogManager::getDataTypeOfAttribute(string tableName,
     logger->log("Field not found.");
     throw ATTRIBUTE_NOT_FOUND;
 }
+
+Index *CatalogManager::getIndex(string tableName, string fieldName) {
+    for (auto index : this->indexes) {
+        if (index.second.tableName == tableName &&
+            index.second.attributeName == fieldName) {
+            return &index.second;
+        }
+    }
+    return NULL;
+}

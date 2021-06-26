@@ -133,6 +133,8 @@ class CatalogManager {
      * @return 数据类型
      */
     DataType getDataTypeOfAttribute(string tableName, string fieldName);
+
+    Index *getIndex(string tableName, string fieldName);
 };
 
 #endif
