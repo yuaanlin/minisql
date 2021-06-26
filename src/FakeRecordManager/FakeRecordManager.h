@@ -34,14 +34,153 @@ class FakeRecordManager {
     FileLogger *logger;
 
    public:
+    /**
+     * There is no documention for this function yet.
+     *
+     * 该函数的文档尚未完善。
+     *
+     * @param sqlCommand string
+     *
+     * @return ExecutionResponse
+     */
     unordered_map<string, FakeTable> tables;
+
+    /**
+     * There is no documention for this function yet.
+     *
+     * 该函数的文档尚未完善。
+     *
+     * @param sqlCommand string
+     *
+     * @return ExecutionResponse
+     */
     void init(FileLogger *l, CatalogManager *c);
+
+    /**
+     * There is no documention for this function yet.
+     *
+     * 该函数的文档尚未完善。
+     *
+     * @param sqlCommand string
+     *
+     * @return ExecutionResponse
+     */
     void saveTablesToFiles();
+
+    /**
+     * There is no documention for this function yet.
+     *
+     * 该函数的文档尚未完善。
+     *
+     * @param sqlCommand string
+     *
+     * @return ExecutionResponse
+     */
     void readTablesFromFiles(vector<string> tableNames);
+
+    /**
+     * There is no documention for this function yet.
+     *
+     * 该函数的文档尚未完善。
+     *
+     * @param sqlCommand string
+     *
+     * @return ExecutionResponse
+     */
     Records selectRecord(string tableName, vector<Condition> conditions);
+
+    /**
+     * There is no documention for this function yet.
+     *
+     * 该函数的文档尚未完善。
+     *
+     * @param sqlCommand string
+     *
+     * @return ExecutionResponse
+     */
     void insertRecord(string table_name, vector<string> record);
+
+    /**
+     * There is no documention for this function yet.
+     *
+     * 该函数的文档尚未完善。
+     *
+     * @param sqlCommand string
+     *
+     * @return ExecutionResponse
+     */
     void createTable(string table_name);
+
+    /**
+     * There is no documention for this function yet.
+     *
+     * 该函数的文档尚未完善。
+     *
+     * @param sqlCommand string
+     *
+     * @return ExecutionResponse
+     */
     void dropTable(string table_name);
+
+    /**
+     * There is no documention for this function yet.
+     *
+     * 该函数的文档尚未完善。
+     *
+     * @param sqlCommand string
+     *
+     * @return ExecutionResponse
+     */
+    int updateRecord(string tableName, vector<string> fields,
+                     vector<string> values, vector<Condition> conditions);
+
+    /**
+     * There is no documention for this function yet.
+     *
+     * 该函数的文档尚未完善。
+     *
+     * @param sqlCommand string
+     *
+     * @return ExecutionResponse
+     */
+    int deleteRecord(string tableName, vector<Condition> conditions);
+
+    /**
+     * There is no documention for this function yet.
+     *
+     * 该函数的文档尚未完善。
+     *
+     * @param sqlCommand string
+     *
+     * @return ExecutionResponse
+     */
+    static vector<int> getAttrIndex(vector<Attribute> attributes,
+                                    vector<Condition> find);
+
+    /**
+     * There is no documention for this function yet.
+     *
+     * 该函数的文档尚未完善。
+     *
+     * @param sqlCommand string
+     *
+     * @return ExecutionResponse
+     */
+    static vector<int> getAttrIndex(vector<Attribute> attributes,
+                                    vector<string> find);
+
+    /**
+     * There is no documention for this function yet.
+     *
+     * 该函数的文档尚未完善。
+     *
+     * @param sqlCommand string
+     *
+     * @return ExecutionResponse
+     */
+    static bool isMatchConditions(vector<string> record,
+                                  vector<int> conditionAttrIndex,
+                                  vector<Condition> conditions);
 };
 
 #endif

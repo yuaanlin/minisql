@@ -70,8 +70,7 @@ OneCommandExecutionResponse Interpreter::interpretDeleteOperation(
         }
     }
 
-    api->deleteRecord(tableName, conditions);
-
-    res.msg = "Delete operation not implemented yet!";
+    int c = api->deleteRecord(tableName, conditions);
+    res.msg = "Delete " + to_string(c) + " records successfully.";
     return res;
 }

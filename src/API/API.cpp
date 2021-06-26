@@ -115,18 +115,19 @@ void API::createIndex(string indexName, string tableName,
     logger->log("API create index finished.");
 }
 
-void API::updateRecord(string tableName, vector<string> fields,
-                       vector<string> values, vector<Condition> conditions) {
-    // TODO: Check table exist
-
-    // TODO: Check fields exist
-
-    // TODO: Call RecordManager to update records
-}
-
-void API::deleteRecord(string tableName, vector<Condition> conditions) {
+int API::updateRecord(string tableName, vector<string> fields,
+                      vector<string> values, vector<Condition> conditions) {
     if (!catalogManager->isTableExist(tableName))
         throw DELETING_TABLE_NOT_EXIST;
+
+    return this->recordManager->updateRecord(tableName, fields, values,
+                                             conditions);
+}
+
+int API::deleteRecord(string tableName, vector<Condition> conditions) {
+    if (!catalogManager->isTableExist(tableName))
+        throw DELETING_TABLE_NOT_EXIST;
+    return 0;
 }
 
 void API::dropIndex(string indexName) {

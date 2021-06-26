@@ -86,8 +86,9 @@ OneCommandExecutionResponse Interpreter::interpretUpdateOperation(
     }
 
     try {
-        api->updateRecord(tableName, fields, values, conditions);
-        res.msg = "Updated records successfully.";
+        int c = api->updateRecord(tableName, fields, values, conditions);
+        logger->log("8");
+        res.msg = "Updated " + to_string(c) + "records successfully.";
         return res;
     } catch (UpdateOperationError error) {
         switch (error) {

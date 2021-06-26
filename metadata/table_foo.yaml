@@ -1,0 +1,6 @@
+name: foo
+attributes: 
+	- name: id
+	  type: 0
+	- name: score
+	  type: 0

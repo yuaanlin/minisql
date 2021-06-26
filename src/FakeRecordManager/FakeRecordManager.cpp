@@ -72,9 +72,9 @@ void FakeRecordManager::readTablesFromFiles(vector<string> tableNames) {
         fs::create_directory("data");
     }
 
-    FakeTable *ft = new FakeTable();
     int count = 0;
     for (auto tableName : tableNames) {
+        FakeTable *ft = new FakeTable();
         logger->log("Reading data from data/" + tableName + ".db ...");
 
         ifstream f;
@@ -122,64 +122,14 @@ Records FakeRecordManager::selectRecord(string tableName,
 
     Table t = this->catalogManager->getTable(tableName);
 
-    vector<int> conditionAttrIndex;
-
-    for (auto c : conditions) {
-        int i = 0;
-        bool found = false;
-        for (auto attr : t.attributes) {
-            if (c.attributeName == attr.name) {
-                conditionAttrIndex.push_back(i);
-                found = true;
-                break;
-            }
-            i++;
-        }
-        if (!found) {
-            throw 1;
-        }
-    }
+    auto conditionAttrIndex = getAttrIndex(t.attributes, conditions);
 
     Records r;
 
-    for (auto block : table) {
-        for (auto record : block) {
-            bool check = true;
-            for (int i = 0; i < conditionAttrIndex.size(); i++) {
-                switch (conditions[i].operate) {
-                    case Condition::EQ_OPERATOR:
-                        if (record[conditionAttrIndex[i]] !=
-                            conditions[i].value)
-                            check = false;
-                        break;
-                    case Condition::NEQ_OPERATOR:
-                        if (record[conditionAttrIndex[i]] ==
-                            conditions[i].value)
-                            check = false;
-                        break;
-                    case Condition::LT_OPERATOR:
-                        if (record[conditionAttrIndex[i]] >=
-                            conditions[i].value)
-                            check = false;
-                        break;
-                    case Condition::LTE_OPERATOR:
-                        if (record[conditionAttrIndex[i]] > conditions[i].value)
-                            check = false;
-                        break;
-                    case Condition::BT_OPERATOR:
-                        if (record[conditionAttrIndex[i]] <=
-                            conditions[i].value)
-                            check = false;
-                        break;
-                    case Condition::BTE_OPERATOR:
-                        if (record[conditionAttrIndex[i]] < conditions[i].value)
-                            check = false;
-                        break;
-                }
-            }
-            if (check) r.push_back(record);
-        }
-    }
+    for (auto block : table)
+        for (auto record : block)
+            if (isMatchConditions(record, conditionAttrIndex, conditions))
+                r.push_back(record);
 
     logger->log("Found " + to_string(r.size()) + " matched records");
 
@@ -223,4 +173,120 @@ void FakeRecordManager::createTable(string tableName) {
 
 void FakeRecordManager::dropTable(string tableName) {
     remove(("data/" + tableName + ".db").c_str());
+}
+
+int FakeRecordManager::updateRecord(string tableName, vector<string> fields,
+                                    vector<string> values,
+                                    vector<Condition> conditions) {
+    FakeTable *table = &(this->tables[tableName]);
+
+    Table t = this->catalogManager->getTable(tableName);
+
+    auto conditionAttrIndex = getAttrIndex(t.attributes, conditions);
+
+    auto dataAttrIndex = getAttrIndex(t.attributes, fields);
+
+    int found = 0;
+
+    for (auto &block : *table) {
+        for (auto &record : block) {
+            if (isMatchConditions(record, conditionAttrIndex, conditions)) {
+                found++;
+
+                int j = 0;
+                for (auto i : dataAttrIndex) {
+                    logger->log("i=" + to_string(i));
+                    logger->log("values[j]=" + (values[j]));
+                    record[i] = values[j++];
+                    logger->log("record[i]=" + record[i]);
+                }
+            }
+        }
+    }
+
+    return found;
+}
+
+int FakeRecordManager::deleteRecord(string tableName,
+                                    vector<Condition> conditions) {}
+
+bool FakeRecordManager::isMatchConditions(vector<string> record,
+                                          vector<int> conditionAttrIndex,
+                                          vector<Condition> conditions) {
+    bool check = true;
+    for (int i = 0; i < conditionAttrIndex.size(); i++) {
+        switch (conditions[i].operate) {
+            case Condition::EQ_OPERATOR:
+                if (record[conditionAttrIndex[i]] != conditions[i].value)
+                    check = false;
+                break;
+            case Condition::NEQ_OPERATOR:
+                if (record[conditionAttrIndex[i]] == conditions[i].value)
+                    check = false;
+                break;
+            case Condition::LT_OPERATOR:
+                if (record[conditionAttrIndex[i]] >= conditions[i].value)
+                    check = false;
+                break;
+            case Condition::LTE_OPERATOR:
+                if (record[conditionAttrIndex[i]] > conditions[i].value)
+                    check = false;
+                break;
+            case Condition::BT_OPERATOR:
+                if (record[conditionAttrIndex[i]] <= conditions[i].value)
+                    check = false;
+                break;
+            case Condition::BTE_OPERATOR:
+                if (record[conditionAttrIndex[i]] < conditions[i].value)
+                    check = false;
+                break;
+        }
+    }
+    return check;
+}
+
+vector<int> FakeRecordManager::getAttrIndex(vector<Attribute> attributes,
+                                            vector<Condition> find) {
+    vector<int> conditionAttrIndex;
+
+    for (auto c : find) {
+        int i = 0;
+
+        bool found = false;
+        for (auto attr : attributes) {
+            if (c.attributeName == attr.name) {
+                conditionAttrIndex.push_back(i);
+                found = true;
+                break;
+            }
+            i++;
+        }
+
+        if (!found) throw 1;
+    }
+
+    return conditionAttrIndex;
+}
+
+vector<int> FakeRecordManager::getAttrIndex(vector<Attribute> attributes,
+                                            vector<string> find) {
+    vector<int> conditionAttrIndex;
+
+    for (auto c : find) {
+        int i = 0;
+
+        bool found = false;
+        for (auto attr : attributes) {
+            if (c == attr.name) {
+                conditionAttrIndex.push_back(i);
+                found = true;
+                break;
+            }
+            i++;
+        }
+
+        if (!found) throw 1;
+    }
+
+    return conditionAttrIndex;
 }

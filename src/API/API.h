@@ -87,8 +87,8 @@ class API {
      *
      * @return ExecutionResponse
      */
-    void updateRecord(string tableName, vector<string> fields,
-                      vector<string> values, vector<Condition> conditions);
+    int updateRecord(string tableName, vector<string> fields,
+                     vector<string> values, vector<Condition> conditions);
 
     /**
      * There is no documention for this function yet.
@@ -99,7 +99,7 @@ class API {
      *
      * @return ExecutionResponse
      */
-    void deleteRecord(string tableName, vector<Condition> conditions);
+    int deleteRecord(string tableName, vector<Condition> conditions);
 
     /**
      * There is no documention for this function yet.
