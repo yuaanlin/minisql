@@ -208,7 +208,34 @@ int FakeRecordManager::updateRecord(string tableName, vector<string> fields,
 }
 
 int FakeRecordManager::deleteRecord(string tableName,
-                                    vector<Condition> conditions) {}
+                                    vector<Condition> conditions) {
+    FakeTable *table = &(this->tables[tableName]);
+
+    Table t = this->catalogManager->getTable(tableName);
+
+    auto conditionAttrIndex = getAttrIndex(t.attributes, conditions);
+
+    int found = 0;
+
+    for (auto &block : *table) {
+        block.erase(std::remove_if(block.begin(), block.end(),
+                                   [&](vector<string> r) {
+                                       bool match = isMatchConditions(
+                                           r, conditionAttrIndex, conditions);
+
+                                       if (match) {
+                                           found++;
+                                       }
+
+                                       logger->log(match ? "true" : "false");
+
+                                       return match;
+                                   }),
+                    block.end());
+    }
+
+    return found;
+}
 
 bool FakeRecordManager::isMatchConditions(vector<string> record,
                                           vector<int> conditionAttrIndex,

@@ -127,7 +127,7 @@ int API::updateRecord(string tableName, vector<string> fields,
 int API::deleteRecord(string tableName, vector<Condition> conditions) {
     if (!catalogManager->isTableExist(tableName))
         throw DELETING_TABLE_NOT_EXIST;
-    return 0;
+    return this->recordManager->deleteRecord(tableName, conditions);
 }
 
 void API::dropIndex(string indexName) {
