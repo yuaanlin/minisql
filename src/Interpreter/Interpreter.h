@@ -41,23 +41,22 @@ class Interpreter {
 
    public:
     /**
-     * There is no documention for this function yet.
      *
-     * 该函数的文档尚未完善。
+     * 执行传入的 SQL 语句
      *
      * @param sqlCommand string
      *
-     * @return ExecutionResponse
+     * @return OneCommandExecutionResponse
      */
     OneCommandExecutionResponse execute(string sqlCommand);
 
     /**
-     * There is no documention for this function yet.
      *
-     * 该函数的文档尚未完善。
+     * 模块初始化
      *
      * @param a API
-     * @param l Logger
+     * @param l FileLogger
+     * @param c CatalogManager
      */
     void init(API *a, FileLogger *l, CatalogManager *c);
 
@@ -70,8 +69,6 @@ class Interpreter {
      * @param from the postion to start read
      *
      * @return The first word in string format from the given postion.
-     *
-     * @throws EOF_REACHED The end of given string reached.
      *
      */
     string getWord(string s, int *from);
@@ -89,9 +86,8 @@ class Interpreter {
     bool isLetter(char c);
 
     /**
-     * There is no documention for this function yet.
      *
-     * 该函数的文档尚未完善。
+     * 模糊判断两字串是否相等，不区分大小写
      *
      * @param a string
      * @param b string
@@ -101,9 +97,8 @@ class Interpreter {
     bool isSame(string a, string b);
 
     /**
-     * There is no documention for this function yet.
      *
-     * 该函数的文档尚未完善。
+     * 判断传入的字串是否为 SQL 的关键字
      *
      * @param a string
      *
@@ -112,19 +107,18 @@ class Interpreter {
     bool isKeyword(string a);
 
     /**
-     * There is no documention for this function yet.
      *
-     * 该函数的文档尚未完善。
+     * 抽象化 SELECT 操作的运行过程
      *
      * @param sql string
      * @param p *int
+     *
+     * @
      */
     OneCommandExecutionResponse interpretSelectOperation(string sql, int *p);
 
     /**
-     * There is no documention for this function yet.
-     *
-     * 该函数的文档尚未完善。
+     * 抽象化 CREATE TABLE 操作的运行流程
      *
      * @param sql string
      * @param p *int
@@ -133,9 +127,8 @@ class Interpreter {
                                                               int *p);
 
     /**
-     * There is no documention for this function yet.
      *
-     * 该函数的文档尚未完善。
+     * 抽象化 CREATE INDEX 操作的运行流程
      *
      * @param sql string
      * @param p *int
@@ -144,9 +137,8 @@ class Interpreter {
                                                               int *p);
 
     /**
-     * There is no documention for this function yet.
      *
-     * 该函数的文档尚未完善。
+     * 抽象化 DROP TABLE 操作的运行流程
      *
      * @param sql string
      * @param p *int
@@ -154,9 +146,8 @@ class Interpreter {
     OneCommandExecutionResponse interpretDropTableOperation(string sql, int *p);
 
     /**
-     * There is no documention for this function yet.
      *
-     * 该函数的文档尚未完善。
+     * 抽象化 DROP INDEX 操作的运行流程
      *
      * @param sql string
      * @param p *int
@@ -164,9 +155,8 @@ class Interpreter {
     OneCommandExecutionResponse interpretDropIndexOperation(string sql, int *p);
 
     /**
-     * There is no documention for this function yet.
      *
-     * 该函数的文档尚未完善。
+     * 抽象化 UPDATE 操作的运行流程
      *
      * @param sql string
      * @param p *int
@@ -174,9 +164,8 @@ class Interpreter {
     OneCommandExecutionResponse interpretUpdateOperation(string sql, int *p);
 
     /**
-     * There is no documention for this function yet.
      *
-     * 该函数的文档尚未完善。
+     * 抽象化 DELETE 操作的运行流程
      *
      * @param sql string
      * @param p *int
@@ -184,9 +173,8 @@ class Interpreter {
     OneCommandExecutionResponse interpretDeleteOperation(string sql, int *p);
 
     /**
-     * There is no documention for this function yet.
      *
-     * 该函数的文档尚未完善。
+     * 抽象化 INSERT 操作的运行流程
      *
      * @param sql string
      * @param p *int

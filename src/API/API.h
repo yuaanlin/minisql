@@ -22,104 +22,96 @@ class API {
 
    public:
     /**
-     * There is no documention for this function yet.
      *
-     * 该函数的文档尚未完善。
+     * 模块初始化
      *
-     * @param sqlCommand string
-     *
-     * @return ExecutionResponse
+     * @param c CatalogManager
+     * @param r RecordManager
+     * @param i IndexManager
+     * @param l FileLogger
      */
     void init(CatalogManager *c, FakeRecordManager *r, IndexManager *ind,
               FileLogger *logger);
 
     /**
-     * There is no documention for this function yet.
      *
-     * 该函数的文档尚未完善。
+     * 调用各个模块以进行 CREATE INDEX 操作
      *
-     * @param sqlCommand string
-     *
-     * @return ExecutionResponse
+     * @param indexName 索引名
+     * @param tableName 表名
+     * @param fields 要建立索引的栏位
      */
     void createIndex(string indexName, string tableName, vector<string> fields);
 
     /**
-     * There is no documention for this function yet.
      *
-     * 该函数的文档尚未完善。
+     * 调用各个模块以进行 CREAT TABLE 操作
      *
-     * @param sqlCommand string
-     *
-     * @return ExecutionResponse
+     * @param tableName 表名
+     * @param attrs 属性列表
      */
     void createTable(string tableName, vector<Attribute> attrs);
 
     /**
-     * There is no documention for this function yet.
      *
-     * 该函数的文档尚未完善。
+     * 调用各个模块以进行 SELECT 操作
      *
-     * @param sqlCommand string
+     * @param tableName 表名
+     * @param columns 栏位
+     * @param conditions 筛选条件
      *
-     * @return Records
+     * @return 查询结果
      */
     Records selectRecords(string tableName, vector<string> columns,
                           vector<Condition> conditions);
 
     /**
-     * There is no documention for this function yet.
      *
-     * 该函数的文档尚未完善。
+     * 调用各个模块以进行 INSERT 操作
      *
-     * @param sqlCommand string
-     *
-     * @return ExecutionResponse
+     * @param tableName 表名
+     * @param values 要插入的记录
      */
     void insertRecord(string tableName, vector<string> values);
 
     /**
-     * There is no documention for this function yet.
      *
-     * 该函数的文档尚未完善。
+     * 调用各个模块以进行 UPDATE 操作
      *
-     * @param sqlCommand string
+     * @param tableName 表名
+     * @param fields 要更改的栏位
+     * @param values 要更改的值
+     * @param condition 筛选条件
      *
-     * @return ExecutionResponse
+     * @return 成功修改的记录数量
      */
     int updateRecord(string tableName, vector<string> fields,
                      vector<string> values, vector<Condition> conditions);
 
     /**
-     * There is no documention for this function yet.
      *
-     * 该函数的文档尚未完善。
+     * 调用各个模块以进行 DELETE 操作
      *
-     * @param sqlCommand string
+     * @param tableName 表名
+     * @param conditions 筛选条件
      *
-     * @return ExecutionResponse
+     * @return 成功删除的记录数量
      */
     int deleteRecord(string tableName, vector<Condition> conditions);
 
     /**
-     * There is no documention for this function yet.
      *
-     * 该函数的文档尚未完善。
+     * 调用各个模块以进行 DROP TABLE 操作
      *
-     * @param sqlCommand string
-     *
-     * @return ExecutionResponse
+     * @param sqlCommand 要删除的表名
      */
     void dropTable(string tableName);
 
     /**
-     * There is no documention for this function yet.
      *
-     * 该函数的文档尚未完善。
+     * 调用各个模块以进行 DROP INDEX 操作
      *
-     * @param sqlCommand string
-     *
-     * @return ExecutionResponse
+     * @param indexName 要删除的索引名
      */
     void dropIndex(string indexName);
 };
