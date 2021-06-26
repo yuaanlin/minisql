@@ -34,149 +34,126 @@ class FakeRecordManager {
     FileLogger *logger;
 
    public:
-    /**
-     * There is no documention for this function yet.
-     *
-     * 该函数的文档尚未完善。
-     *
-     * @param sqlCommand string
-     *
-     * @return ExecutionResponse
-     */
     unordered_map<string, FakeTable> tables;
 
     /**
-     * There is no documention for this function yet.
      *
-     * 该函数的文档尚未完善。
+     * 模块初始化
      *
-     * @param sqlCommand string
-     *
-     * @return ExecutionResponse
+     * @param l FileLogger
+     * @param c CatalogerManager
      */
     void init(FileLogger *l, CatalogManager *c);
 
     /**
-     * There is no documention for this function yet.
      *
-     * 该函数的文档尚未完善。
+     * 将所有数据表的所有数据存入 .db 文件
      *
-     * @param sqlCommand string
-     *
-     * @return ExecutionResponse
      */
     void saveTablesToFiles();
 
     /**
-     * There is no documention for this function yet.
      *
-     * 该函数的文档尚未完善。
+     * 从 .db 文件载入所有记录
      *
-     * @param sqlCommand string
-     *
-     * @return ExecutionResponse
+     * @param tableNames 需要载入的表名
      */
     void readTablesFromFiles(vector<string> tableNames);
 
     /**
-     * There is no documention for this function yet.
      *
-     * 该函数的文档尚未完善。
+     * 查询数据表中满足条件的记录
      *
-     * @param sqlCommand string
+     * @param tableName 表名
+     * @param conditions 筛选条件列表
      *
-     * @return ExecutionResponse
+     * @return 所有符合筛选条件的记录
      */
     Records selectRecord(string tableName, vector<Condition> conditions);
 
     /**
-     * There is no documention for this function yet.
      *
-     * 该函数的文档尚未完善。
+     * 插入新记录到数据表
      *
-     * @param sqlCommand string
-     *
-     * @return ExecutionResponse
+     * @param tableName 表名
+     * @param record 新纪录
      */
-    void insertRecord(string table_name, vector<string> record);
+    void insertRecord(string tableName, vector<string> record);
 
     /**
-     * There is no documention for this function yet.
      *
-     * 该函数的文档尚未完善。
+     * 建立数据表文件
      *
-     * @param sqlCommand string
-     *
-     * @return ExecutionResponse
+     * @param tableName 表名
      */
-    void createTable(string table_name);
+    void createTable(string tableName);
 
     /**
-     * There is no documention for this function yet.
      *
-     * 该函数的文档尚未完善。
+     * 删除数据表文件
      *
-     * @param sqlCommand string
-     *
-     * @return ExecutionResponse
+     * @param tablename 表名
      */
-    void dropTable(string table_name);
+    void dropTable(string tableName);
 
     /**
-     * There is no documention for this function yet.
      *
-     * 该函数的文档尚未完善。
+     * 修改满足条件的记录
      *
-     * @param sqlCommand string
+     * @param tableName 表名
+     * @param fields 要修改的栏位列表
+     * @param values 各个栏位对应的新数据
+     * @param conditions 筛选条件列表
      *
-     * @return ExecutionResponse
+     * @return 成功修改的记录数量
      */
     int updateRecord(string tableName, vector<string> fields,
                      vector<string> values, vector<Condition> conditions);
 
     /**
-     * There is no documention for this function yet.
      *
-     * 该函数的文档尚未完善。
+     * 删除满足筛选条件的数据
      *
-     * @param sqlCommand string
+     * @param tableName 表名
+     * @param codintions 筛选条件
      *
-     * @return ExecutionResponse
+     * @return 成功删除的记录数量
      */
     int deleteRecord(string tableName, vector<Condition> conditions);
 
     /**
-     * There is no documention for this function yet.
      *
-     * 该函数的文档尚未完善。
+     * 将给定的多个筛选条件的栏位名转换为对应的下标
      *
-     * @param sqlCommand string
+     * @param attributes 数据表的属性列表
+     * @param find 筛选条件列表
      *
-     * @return ExecutionResponse
+     * @return 转换后的下标向量
      */
     static vector<int> getAttrIndex(vector<Attribute> attributes,
                                     vector<Condition> find);
 
     /**
-     * There is no documention for this function yet.
      *
-     * 该函数的文档尚未完善。
+     * 将给定的多个栏位名转换为对应的下标
      *
-     * @param sqlCommand string
+     * @param attributes 数据表的属性列表
+     * @param find 要转换成下标的栏位名列表
      *
-     * @return ExecutionResponse
+     * @return 转换后的下标
      */
     static vector<int> getAttrIndex(vector<Attribute> attributes,
                                     vector<string> find);
 
     /**
-     * There is no documention for this function yet.
      *
-     * 该函数的文档尚未完善。
+     * 检查一笔记录是否同时满足所有给定的筛选条件
      *
-     * @param sqlCommand string
+     * @param record 记录
+     * @param conditionAttrIndex 筛选条件的栏位标记，可透过 getAttrIndex 获取
+     * @param conditions 筛选条件列表
      *
-     * @return ExecutionResponse
+     * @return 是否满足
      */
     static bool isMatchConditions(vector<string> record,
                                   vector<int> conditionAttrIndex,

@@ -6,8 +6,7 @@
 
 namespace fs = std::filesystem;
 
-void CatalogManager::init(API *a, FileLogger *l) {
-    api = a;
+void CatalogManager::init(FileLogger *l) {
     logger = l;
 
     logger->log("Catalog Manager Starting read table metadata files");

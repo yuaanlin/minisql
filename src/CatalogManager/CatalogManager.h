@@ -11,12 +11,8 @@
 
 using namespace std;
 
-class API;
-class BufferManager;
-
 class CatalogManager {
    private:
-    API *api;
     FileLogger *logger;
 
    public:
@@ -26,145 +22,115 @@ class CatalogManager {
     unordered_map<string, Index> indexes;
 
     /**
-     * There is no documention for this function yet.
      *
-     * 该函数的文档尚未完善。
+     * 模块初始化
      *
-     * @param sqlCommand string
-     *
-     * @return ExecutionResponse
+     * @param l FileLogger
      */
-    void init(API *a, FileLogger *l);
+    void init(FileLogger *l);
 
     /**
-     * There is no documention for this function yet.
      *
-     * 该函数的文档尚未完善。
+     * 创建数据表元数据
      *
-     * @param sqlCommand string
-     *
-     * @return ExecutionResponse
+     * @param table 要创建的数据表
      */
     void createTable(Table table);
 
     /**
-     * There is no documention for this function yet.
      *
-     * 该函数的文档尚未完善。
+     * 根据索引名查询表是否存在
      *
-     * @param sqlCommand string
+     * @param tableName 索引名
      *
-     * @return ExecutionResponse
+     * @return 表是否存在
      */
     bool isTableExist(string tableName);
 
     /**
-     * There is no documention for this function yet.
      *
-     * 该函数的文档尚未完善。
+     * 从 metadata 文件目录载入数据表元数据
      *
-     * @param sqlCommand string
-     *
-     * @return ExecutionResponse
      */
     void readTableFiles();
 
     /**
-     * There is no documention for this function yet.
      *
-     * 该函数的文档尚未完善。
+     * 删除数据表
      *
-     * @param sqlCommand string
-     *
-     * @return ExecutionResponse
+     * @param tableName 要删除的表名
      */
     void dropTable(string tableName);
 
     /**
-     * There is no documention for this function yet.
      *
-     * 该函数的文档尚未完善。
+     * 建立索引元数据
      *
-     * @param sqlCommand string
-     *
-     * @return ExecutionResponse
+     * @param index 要建立的索引
      */
     void createIndex(Index index);
 
     /**
-     * There is no documention for this function yet.
      *
-     * 该函数的文档尚未完善。
+     * 根据索引名查询索引是否存在
      *
-     * @param sqlCommand string
+     * @param indexName 索引名
      *
-     * @return ExecutionResponse
+     * @return 索引是否存在
      */
     bool isIndexExist(string indexName);
 
     /**
-     * There is no documention for this function yet.
      *
-     * 该函数的文档尚未完善。
+     * 从 metadata 文件目录载入所有索引
      *
-     * @param sqlCommand string
-     *
-     * @return ExecutionResponse
      */
     void readIndexFiles();
 
     /**
-     * There is no documention for this function yet.
      *
-     * 该函数的文档尚未完善。
+     * 删除索引
      *
-     * @param sqlCommand string
-     *
-     * @return ExecutionResponse
+     * @param indexName 索引名
      */
     void dropIndex(string indexName);
 
     /**
-     * There is no documention for this function yet.
      *
-     * 该函数的文档尚未完善。
+     * 获取某数据表的元数据
      *
-     * @param sqlCommand string
+     * @param tableName 表名
      *
-     * @return ExecutionResponse
+     * @return 数据表的元数据
      */
     Table getTable(string tableName);
 
     /**
-     * There is no documention for this function yet.
      *
-     * 该函数的文档尚未完善。
+     * 获取所有数据表的元数据
      *
-     * @param sqlCommand string
-     *
-     * @return ExecutionResponse
+     * @return 所有数据表的元数据
      */
     vector<Table> getTables();
 
     /**
-     * There is no documention for this function yet.
      *
-     * 该函数的文档尚未完善。
+     * 根据索引名查询索引的元数据
      *
-     * @param sqlCommand string
+     * @param indexName 索引名称
      *
-     * @return ExecutionResponse
+     * @return 索引的元数据
      */
     Index getIndex(string indexName);
 
     /**
-     * There is no documention for this function yet.
      *
-     * 该函数的文档尚未完善。
+     * 查询某数据表的某栏位的数据类型
      *
-     * @param sqlCommand string
+     * @param tableName 表名
+     * @param fieldName 属性名
      *
-     * @return ExecutionResponse
+     * @return 数据类型
      */
     DataType getDataTypeOfAttribute(string tableName, string fieldName);
 };

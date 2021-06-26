@@ -18,7 +18,7 @@ MiniSQLServer::MiniSQLServer() {
     logger->log("Starting MiniSQL Server ...");
     cout << "MiniSQL starting initialize and load data ..." << endl;
 
-    this->catalogManager->init(this->api, logger);
+    this->catalogManager->init(logger);
     this->recordManager->init(logger, this->catalogManager);
     this->indexManager->init(this->api, this->bufferManager);
     this->api->init(this->catalogManager, this->recordManager,
