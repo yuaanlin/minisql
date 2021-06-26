@@ -219,7 +219,7 @@ DataType CatalogManager::getDataTypeOfAttribute(string tableName,
 }
 
 Index *CatalogManager::getIndex(string tableName, string fieldName) {
-    for (auto index : this->indexes) {
+    for (auto &index : this->indexes) {
         if (index.second.tableName == tableName &&
             index.second.attributeName == fieldName) {
             return &index.second;

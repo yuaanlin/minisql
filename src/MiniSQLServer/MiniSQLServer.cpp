@@ -20,7 +20,7 @@ MiniSQLServer::MiniSQLServer() {
 
     this->catalogManager->init(logger);
     this->recordManager->init(logger, this->catalogManager);
-    this->indexManager->init(this->api, this->bufferManager);
+    this->indexManager->init(this->recordManager);
     this->api->init(this->catalogManager, this->recordManager,
                     this->indexManager, logger);
     this->bufferManager->init();

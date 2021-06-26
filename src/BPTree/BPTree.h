@@ -22,7 +22,6 @@ class BPTreeNode_int {
 
     BPTreeNode_int(int degree,
                    bool LeafNode = false);  //创建节点。缺省自动建非叶节点
-    ~BPTreeNode_int();
 
     bool searchkey_node(int key, int& index);
     int AddToBranch(int& key);
@@ -72,7 +71,6 @@ class BPTreeNode_float {
 
     BPTreeNode_float(int degree,
                      bool LeafNode = false);  //创建节点。缺省自动建非叶节点
-    ~BPTreeNode_float();
 
     bool searchkey_node(float key, int& index);
     int AddToBranch(float& key);
@@ -122,7 +120,6 @@ class BPTreeNode_string {
 
     BPTreeNode_string(int degree,
                       bool LeafNode = false);  //创建节点。缺省自动建非叶节点
-    ~BPTreeNode_string();
 
     bool searchkey_node(string key, int& index);
     int AddToBranch(string& key);

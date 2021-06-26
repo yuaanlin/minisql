@@ -7,8 +7,10 @@
 #include "../BPTree/BPTree.h"
 #include "../FakeRecordManager/FakeRecordManager.h"
 
-static FakeRecordManager rm;
 class IndexManager {
+   private:
+    FakeRecordManager* rm;
+
    public:
     enum IndexManagerError {
         INSRET_INDEX_ERROR,
@@ -18,7 +20,7 @@ class IndexManager {
         SEARCH_RANGE_ERROR
     };
 
-    void init();
+    void init(FakeRecordManager* r);
 
     void createIndex(string indexName,
                      DataType type);  //功能：创建索引文件及B+树

@@ -158,7 +158,7 @@ void API::dropIndex(string indexName) {
 
     catalogManager->dropIndex(indexName);
 
-    // TODO: Call IndexManager::DropIndex
+    this->indexManager->dropIndex(indexName);
 }
 
 void API::dropTable(string tableName) {
