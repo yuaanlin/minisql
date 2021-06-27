@@ -222,13 +222,7 @@ int FakeRecordManager::deleteRecord(string tableName,
                                    [&](vector<string> r) {
                                        bool match = isMatchConditions(
                                            r, conditionAttrIndex, conditions);
-
-                                       if (match) {
-                                           found++;
-                                       }
-
-                                       logger->log(match ? "true" : "false");
-
+                                       if (match) found++;
                                        return match;
                                    }),
                     block.end());

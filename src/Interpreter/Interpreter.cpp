@@ -16,6 +16,7 @@ void Interpreter::init(API *a, FileLogger *l, CatalogManager *c) {
 OneCommandExecutionResponse Interpreter::execute(string sqlCommand) {
     logger->log("Received new sql command: ");
     logger->log(sqlCommand);
+
     OneCommandExecutionResponse res;
     res.cmd = sqlCommand;
 

@@ -28,15 +28,20 @@ vector<Table> CatalogManager::getTables() {
 
 void CatalogManager::createTable(Table table) {
     if (isTableExist(table.name)) throw TABLE_ALREADY_EXIST;
+
     this->tables[table.name] = table;
+
     ofstream tableMetaFile;
     tableMetaFile.open("metadata/table_" + table.name + ".yaml");
+
     tableMetaFile << "name: " << table.name << endl;
     tableMetaFile << "attributes: " << endl;
+
     for (auto a : table.attributes) {
         tableMetaFile << "\t- name: " << a.name << endl;
         tableMetaFile << "\t  type: " << a.dataType << endl;
     }
+
     tableMetaFile.close();
 }
 

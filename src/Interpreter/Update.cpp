@@ -44,9 +44,11 @@ OneCommandExecutionResponse Interpreter::interpretUpdateOperation(
 
     if (isSame(w, "WHERE")) {
         logger->log("Starting parsing conditions ...");
+
         string a;
         int o;
         string b;
+
         int c = 0;
         while (true) {
             w = getWord(sqlCommand, p);
@@ -87,7 +89,6 @@ OneCommandExecutionResponse Interpreter::interpretUpdateOperation(
 
     try {
         int c = api->updateRecord(tableName, fields, values, conditions);
-        logger->log("8");
         res.msg = "Updated " + to_string(c) + "records successfully.";
         return res;
     } catch (UpdateOperationError error) {

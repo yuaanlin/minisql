@@ -15,8 +15,6 @@ Records API::selectRecords(string tableName, vector<string> columns,
     if (!catalogManager->isTableExist(tableName))
         throw SELECTING_TABLE_NOT_EXIST;
 
-    Table t = this->catalogManager->getTable(tableName);
-
     Index *i = NULL;
     string valueForIndex = "";
 
@@ -40,6 +38,8 @@ Records API::selectRecords(string tableName, vector<string> columns,
     if (columns.size() == 1 && columns[0] == "*") {
         return records;
     }
+
+    Table t = this->catalogManager->getTable(tableName);
 
     vector<int> fieldIndex;
 
